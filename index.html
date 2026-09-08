@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Dramaturgia para la Danza · Taller Intensivo · RAÍZ Colectiva Teatro</title>
-  <meta name="description" content="Taller intensivo online de Dramaturgia para la Danza: del cuerpo que escribe a la palabra que danza. 12 y 13 de Septiembre vía Zoom, facilitado por Alejandro Bustamante — RAÍZ Colectiva Teatro.">
+  <meta name="description" content="Taller intensivo online de Dramaturgia para la Danza: del cuerpo que escribe a la palabra que danza. Sábado 12 y Domingo 13 de Septiembre vía Zoom, facilitado por Alejandro Bustamante — RAÍZ Colectiva Teatro.">
 
-  <!-- Open Graph / Meta Social -->
+  <!-- Open Graph -->
   <meta property="og:title" content="Dramaturgia para la Danza · Taller Intensivo · 12 y 13 de Septiembre">
   <meta property="og:description" content="Del cuerpo que escribe a la palabra que danza. Un puente conceptual entre la acción física y la palabra. RAÍZ Colectiva Teatro.">
   <meta property="og:image" content="assets/afiche.jpg">
@@ -16,715 +16,877 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Vollkorn:ital,wght@0,400;0,600;1,400;1,500;1,600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
 
-  <!-- Textura de grano y luz cenital escénica -->
-  <div class="grain" aria-hidden="true"></div>
-  <div class="stage-light-fx" aria-hidden="true"></div>
+  <!-- Tailwind CSS CDN para renderizado idéntico al proyecto de Yoga -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            stage: {
+              950: '#05080C',
+              900: '#080C12',
+              800: '#0E1520',
+              700: '#141E2D',
+              600: '#1A283B',
+            },
+            theatreGold: {
+              300: '#F5E6BE',
+              400: '#EAD59E',
+              500: '#C4AA6A',
+              600: '#9E8444',
+            },
+            stageBeam: {
+              300: '#C3DCF0',
+              400: '#A9C8E2',
+              500: '#8EB5D4',
+              600: '#5F8BAE',
+            },
+            linenCream: '#F7F4EB',
+          },
+          fontFamily: {
+            serif: ['Vollkorn', 'Georgia', 'serif'],
+            display: ['Bebas Neue', 'sans-serif'],
+            sans: ['Poppins', 'system-ui', 'sans-serif'],
+          },
+          animation: {
+            'breathe': 'breathe 4s ease-in-out infinite',
+            'float': 'float 4s ease-in-out infinite',
+          },
+          keyframes: {
+            breathe: {
+              '0%, 100%': { transform: 'scale(0.96)', opacity: '0.7' },
+              '50%': { transform: 'scale(1.08)', opacity: '1' },
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-6px)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Estilos críticos en línea para el Loader y la iluminación teatral -->
+  <style>
+    /* Texture and Grain */
+    .grain-overlay {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 900;
+      opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    .stage-cone {
+      position: fixed;
+      top: -20vh;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 95vw;
+      max-width: 1200px;
+      height: 95vh;
+      background: radial-gradient(ellipse at 50% 0%, rgba(142, 181, 212, 0.22) 0%, rgba(8, 12, 18, 0) 70%);
+      pointer-events: none;
+      z-index: 1;
+    }
+    /* Scroll reveal transitions */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+  <link rel="stylesheet" href="css/style.css?v=20260908">
+</head>
+<body class="bg-[#080C12] text-[#F7F4EB] font-sans selection:bg-[#EAD59E] selection:text-[#080C12] overflow-x-hidden">
+
+  <!-- Grain & Stage Light -->
+  <div class="grain-overlay" aria-hidden="true"></div>
+  <div class="stage-cone" aria-hidden="true"></div>
 
   <!-- ============================================================
-       INTRO LOADER (RESPIRACIÓN Y PRESENCIA ESCÉNICA)
+       INTRO LOADER IDÉNTICO AL DISEÑO DE YOGA (BREATHING ANIMATION)
        ============================================================ -->
-  <aside id="intro-loader" aria-label="Cargando experiencia">
-    <div class="loader-stage">
-      <div class="loader-beam"></div>
-      <div class="loader-ring loader-ring-1"></div>
-      <div class="loader-ring loader-ring-2"></div>
+  <div
+    id="intro-loader"
+    class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#070A0F] transition-opacity duration-1000 opacity-100"
+  >
+    <div class="relative flex h-56 w-56 items-center justify-center">
+      <!-- Animated breathing pulse rings -->
+      <div class="absolute inset-0 rounded-full border border-[#EAD59E]/40 animate-ping opacity-25"></div>
+      <div class="absolute inset-4 rounded-full border border-[#8EB5D4]/25 animate-[breathe_4s_ease-in-out_infinite]"></div>
+      <div class="absolute inset-10 rounded-full bg-[#8EB5D4]/10 animate-[breathe_4s_ease-in-out_infinite]"></div>
       
-      <!-- Icono Raíz / Árbol / Movimiento -->
-      <svg class="loader-icon" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <!-- Central Organic Tree / Dancer Motif -->
+      <svg viewBox="0 0 100 100" class="relative z-10 h-32 w-32 text-[#EAD59E] animate-[float_4s_ease-in-out_infinite]" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="50" cy="50" r="46" stroke="#EAD59E" stroke-width="1" stroke-dasharray="3 3" opacity="0.6" />
         <path d="M50 82 V48" stroke-width="2.6" />
         <path d="M50 82 C42 86, 32 88, 24 88 M50 82 C58 86, 68 88, 76 88 M50 72 C40 76, 30 76, 20 74 M50 72 C60 76, 70 76, 80 74" stroke-width="1.8" />
         <path d="M50 48 C42 40, 32 36, 22 40 M50 48 C58 40, 68 36, 78 40 M50 40 C44 30, 34 26, 26 28 M50 40 C56 30, 66 26, 74 28 M50 32 C48 22, 50 16, 50 14" stroke-width="2" />
         <circle cx="22" cy="40" r="2" fill="currentColor" />
         <circle cx="78" cy="40" r="2" fill="currentColor" />
+        <circle cx="26" cy="28" r="2" fill="currentColor" />
+        <circle cx="74" cy="28" r="2" fill="currentColor" />
         <circle cx="50" cy="14" r="2.5" fill="#EAD59E" />
       </svg>
     </div>
 
-    <div class="loader-text-box">
-      <p id="loader-phase-text" class="loader-phase">El cuerpo que escribe...</p>
-      <p class="loader-sub">Dramaturgia para la Danza · RAÍZ Colectiva</p>
-    </div>
+    <!-- Poetic Phase Text (Smooth Transition) -->
+    <p id="loader-phase-text" class="mt-8 font-serif text-2xl md:text-3xl tracking-[0.2em] uppercase text-[#F7F4EB] transition-all duration-700 text-center px-4">
+      El cuerpo que escribe...
+    </p>
+    <p class="mt-2 text-xs tracking-[0.35em] uppercase text-[#EAD59E]">
+      Dramaturgia para la Danza · RAÍZ Colectiva Teatro
+    </p>
 
-    <button id="loader-skip-btn" class="loader-skip" type="button">Entrar al sitio</button>
-  </aside>
-
-
-  <!-- ============================================================
-       TOP STICKY BAR
-       ============================================================ -->
-  <header class="site-bar">
-    <div class="bar-container">
-      <a href="#inicio" class="bar-brand">
-        <svg class="brand-icon" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="50" cy="50" r="46" stroke="#EAD59E" stroke-width="1" opacity="0.4" />
-          <path d="M50 82 V48" stroke-width="2.6" />
-          <path d="M50 82 C42 86, 32 88, 24 88 M50 82 C58 86, 68 88, 76 88" stroke-width="1.8" />
-          <path d="M50 48 C42 40, 32 36, 22 40 M50 48 C58 40, 68 36, 78 40 M50 40 C44 30, 34 26, 26 28" stroke-width="2" />
-          <circle cx="50" cy="14" r="2.5" fill="currentColor" />
-        </svg>
-        <div>
-          <span class="brand-title">RAÍZ COLECTIVA</span>
-          <span class="brand-tag">Teatro · Antropología Teatral</span>
-        </div>
-      </a>
-
-      <nav class="bar-nav" aria-label="Navegación principal">
-        <a href="#enfoque" class="nav-link">Enfoque</a>
-        <a href="#estructura" class="nav-link">Estructura</a>
-        <a href="#voces" class="nav-link">Polifonía</a>
-        <a href="#glosario" class="nav-link">Glosario</a>
-        <a href="#inversion" class="nav-link">Inversión</a>
-        <a href="#facilitador" class="nav-link">Facilitación</a>
-        <a href="#faq" class="nav-link">FAQ</a>
-      </nav>
-
-      <div class="bar-actions">
-        <div class="bar-date-pill">
-          <span class="pulse-dot"></span>
-          <span>12 y 13 Septiembre · Zoom</span>
-        </div>
-        <a href="#inscripcion" class="btn-bar-cta">Inscribirme</a>
-      </div>
-    </div>
-  </header>
+    <!-- Botón para entrar directo -->
+    <button
+      id="loader-skip-btn"
+      type="button"
+      class="mt-8 rounded-full border border-[#8EB5D4]/40 bg-transparent px-6 py-2 text-[11px] font-bold uppercase tracking-[0.25em] text-[#C8D2DE] transition-all hover:border-[#EAD59E] hover:text-[#EAD59E] hover:bg-[#EAD59E]/10"
+    >
+      Entrar al sitio →
+    </button>
+  </div>
 
 
   <!-- ============================================================
-       HERO SECTION
+       CONTENIDO PRINCIPAL DEL SITIO (FADE-IN CON DURATION 1000)
        ============================================================ -->
-  <main>
-    <section class="hero-section" id="inicio">
-      <img class="hero-bg-tree" src="assets/tree.png" alt="" aria-hidden="true">
+  <div id="main-site-content" class="min-h-screen opacity-0 transition-opacity duration-1000">
 
-      <div class="hero-layout">
-        <!-- Columna Izquierda: Información Editorial y Llamado a la Acción -->
-        <div class="hero-content">
-          <div class="hero-badge-tag reveal">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            Taller Intensivo Online · Vía Zoom
-          </div>
-
-          <h1 class="hero-title reveal">
-            <span class="hero-title-top">Taller Intensivo de</span>
-            <span class="hero-title-main">Dramaturgia<br>para Danza</span>
-          </h1>
-
-          <p class="hero-quote-sub reveal">
-            "Del cuerpo que escribe a la palabra que danza."
-          </p>
-
-          <p class="hero-lead-text reveal">
-            Un puente conceptual y sensible entre la acción física y la palabra. Herramientas analíticas y compositivas para transitar de la intuición hacia estructuras conscientes sin traicionar la naturaleza no verbal de la danza.
-          </p>
-
-          <!-- Tarjetas de Horario Oficiales (12 y 13 de Septiembre) -->
-          <div class="hero-schedule-grid reveal">
-            <div class="schedule-card">
-              <div class="schedule-icon-wrap">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-              </div>
-              <div>
-                <span class="schedule-date">Sábado 12 de Septiembre</span>
-                <span class="schedule-hours">8:00 a 10:00 AM</span>
-              </div>
-            </div>
-
-            <div class="schedule-card">
-              <div class="schedule-icon-wrap">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-              </div>
-              <div>
-                <span class="schedule-date">Domingo 13 de Septiembre</span>
-                <span class="schedule-hours">8:00 a 12:00 AM (mediodía)</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Píldoras de Valor Formativo -->
-          <div class="hero-badges-strip reveal">
-            <span class="hero-pill">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-              6 Horas Intensivas
+    <!-- TOP STICKY HEADER -->
+    <header class="sticky top-0 z-40 border-b border-[#8EB5D4]/20 bg-[#080C12]/90 backdrop-blur-md">
+      <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-3.5 lg:px-10">
+        <a href="#inicio" class="flex items-center gap-3 group">
+          <svg viewBox="0 0 100 100" class="h-9 w-9 text-[#EAD59E] group-hover:scale-105 transition-transform" fill="none" stroke="currentColor" stroke-width="1.8">
+            <circle cx="50" cy="50" r="46" stroke="#EAD59E" stroke-width="1" opacity="0.4" />
+            <path d="M50 82 V48" stroke-width="2.6" />
+            <path d="M50 82 C42 86, 32 88, 24 88 M50 82 C58 86, 68 88, 76 88" stroke-width="1.8" />
+            <path d="M50 48 C42 40, 32 36, 22 40 M50 48 C58 40, 68 36, 78 40" stroke-width="2" />
+            <circle cx="50" cy="14" r="2.5" fill="currentColor" />
+          </svg>
+          <div>
+            <span class="block font-serif text-lg font-bold tracking-widest leading-none text-[#F7F4EB]">
+              RAÍZ COLECTIVA
             </span>
-            <span class="hero-pill">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
-              Vía Zoom en Vivo (+ Grabaciones HD 30 días)
-            </span>
-            <span class="hero-pill">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-              Grupo Reducido (15–18 personas)
-            </span>
-            <span class="hero-pill">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-              Certificado Digital RAÍZ Colectiva
+            <span class="block text-[10px] uppercase tracking-[0.3em] text-[#EAD59E]">
+              Teatro · Danza · Antropología Escénica
             </span>
           </div>
+        </a>
 
-          <!-- Botones de Acción -->
-          <div class="hero-cta-group reveal">
-            <a href="#inscripcion" class="btn-primary">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 2c-5.518 0-9.998 4.476-9.998 9.993 0 1.763.459 3.483 1.332 5.001L2 22l5.176-1.337c1.472.802 3.125 1.226 4.855 1.226 5.518 0 9.998-4.477 9.998-9.994C22.029 6.476 17.549 2 12.031 2zm0 18.286c-1.503 0-2.973-.404-4.256-1.168l-.305-.181-3.16.817.844-3.048-.198-.319c-.838-1.347-1.282-2.91-1.282-4.512 0-4.571 3.719-8.288 8.297-8.288 4.577 0 8.297 3.717 8.297 8.288 0 4.572-3.72 8.289-8.297 8.289zm4.542-6.208c-.249-.125-1.474-.727-1.703-.81-.229-.083-.395-.125-.561.125-.166.249-.644.81-.789.976-.145.166-.291.187-.54.062-.249-.125-1.052-.388-2.003-1.237-.74-.66-1.24-1.476-1.385-1.725-.145-.249-.015-.384.109-.508.112-.112.249-.291.374-.436.125-.145.166-.249.249-.415.083-.166.042-.312-.021-.436-.062-.125-.561-1.35-.769-1.85-.202-.488-.408-.422-.561-.43l-.478-.008c-.166 0-.436.062-.664.312-.229.249-.873.853-.873 2.079s.894 2.411 1.018 2.577c.125.166 1.758 2.685 4.26 3.766.595.257 1.06.411 1.423.527.598.19 1.142.163 1.572.099.48-.072 1.474-.602 1.682-1.185.208-.582.208-1.08.145-1.185-.062-.104-.228-.166-.477-.291z"/></svg>
-              Inscribirme ($45 USD Pronto Pago)
-            </a>
-            <a href="#estructura" class="btn-secondary">
-              Ver Programa y Módulos
-            </a>
-          </div>
-        </div>
+        <nav class="hidden md:flex items-center gap-8 text-xs font-semibold uppercase tracking-[0.2em] text-[#C8D2DE]">
+          <a href="#enfoque" class="hover:text-[#EAD59E] transition-colors">Enfoque</a>
+          <a href="#estructura" class="hover:text-[#EAD59E] transition-colors">Estructura</a>
+          <a href="#voces" class="hover:text-[#EAD59E] transition-colors">Polifonía</a>
+          <a href="#inversion" class="hover:text-[#EAD59E] transition-colors">Inversión</a>
+          <a href="#facilitador" class="hover:text-[#EAD59E] transition-colors">Facilitación</a>
+          <a href="#faq" class="hover:text-[#EAD59E] transition-colors">FAQ</a>
+        </nav>
 
-        <!-- Columna Derecha: Afiche Oficial Enmarcado con Luz Teatral -->
-        <div class="hero-poster-box reveal">
-          <div class="poster-theatre-frame">
-            <div class="poster-inner">
-              <img src="assets/afiche.jpg" alt="Afiche Oficial Taller Intensivo Dramaturgia para la Danza - RAÍZ Colectiva Teatro" class="poster-img" width="440" height="550">
-            </div>
-            <div class="poster-caption">
-              <span class="poster-tag-live">
-                <span class="pulse-dot"></span> Cupos Limitados (15–18)
-              </span>
-              <span class="poster-by">Facilita: Alejandro Bustamante</span>
-            </div>
+        <div class="flex items-center gap-3">
+          <div class="hidden lg:flex items-center gap-2 rounded-full border border-[#8EB5D4]/30 bg-[#8EB5D4]/10 px-3.5 py-1 text-xs font-medium text-[#A9C8E2]">
+            <span class="h-2 w-2 rounded-full bg-[#EAD59E] animate-pulse"></span>
+            12 y 13 Septiembre · Zoom
           </div>
+          <a
+            href="#inscripcion"
+            class="inline-flex items-center gap-2 rounded-full bg-[#EAD59E] px-5 py-2 text-xs font-bold uppercase tracking-wider text-[#080C12] transition-all hover:bg-[#F5E6BE] shadow-md hover:shadow-lg hover:scale-105"
+          >
+            Inscribirme
+          </a>
         </div>
       </div>
-    </section>
+    </header>
 
 
     <!-- ============================================================
-         ENFOQUE & PREGUNTA RECTORA
+         HERO SECTION — EXACTA ESTRUCTURA DE LA PÁGINA DE YOGA
+         CON EL AFICHE DESTACADO A LA DERECHA EN SU TARJETA ARQUEADA
          ============================================================ -->
-    <section class="section" id="enfoque">
-      <div class="section-container">
-        
-        <!-- Bloque de la Pregunta Rectora -->
-        <div class="quote-highlight-box reveal">
-          <p class="section-eyebrow">Pregunta rectora</p>
-          <blockquote class="guiding-quote">
-            ¿Cómo transitar desde las potencias poéticas e intuitivas propias de la creación en danza hacia estructuras conscientes y articuladas, <em>sin traicionar la naturaleza no verbal de este lenguaje?</em>
-          </blockquote>
-          <p class="quote-note">
-            Esta pregunta no se responde de manera unívoca a lo largo de las seis horas del programa. Se sostiene como <strong>tensión productiva</strong>: entre estructura y pulsión, entre lo dicho y lo poroso, entre la peripecia visible y la invisible.
-          </p>
-        </div>
+    <section class="relative overflow-hidden px-6 pt-10 pb-16 lg:px-10 lg:pt-14 lg:pb-24 border-b border-[#8EB5D4]/20 bg-gradient-to-b from-[#0E1520] via-[#080C12] to-[#080C12]" id="inicio">
+      <!-- Background subtle lighting -->
+      <div class="absolute -left-20 -top-20 h-96 w-96 rounded-full border border-[#EAD59E]/15 pointer-events-none"></div>
+      <div class="absolute right-10 top-1/3 h-80 w-80 rounded-full border border-[#8EB5D4]/15 pointer-events-none"></div>
 
-        <div class="section-header reveal">
-          <span class="section-eyebrow">Fundamentación Teatral</span>
-          <h2 class="section-title">Habitar la Paradoja: El Cuerpo que Escribe</h2>
-          <p class="section-lead">
-            La dramaturgia trasciende el guion literario: es la organización de impulsos con intención comunicativa hacia el espectador.
-          </p>
-        </div>
-
-        <div class="manifesto-grid">
-          <article class="manifesto-card reveal">
-            <div>
-              <span class="card-tag">01 · Epistemología</span>
-              <h3>La paradoja fundacional</h3>
-              <p>
-                La dramaturgia, como término y como disciplina, nace en el siglo XVIII de la mano de Gotthold Ephraim Lessing en su <em>Hamburgische Dramaturgie</em>, concebida originalmente como el arte de componer y analizar obras ancladas en la palabra escrita. Trasladar esa herencia a un arte que se piensa, se compone y se transmite fundamentalmente a través del cuerpo en movimiento constituye una paradoja fundacional y un desafío epistemológico real.
-              </p>
-              <p>
-                Este programa no parte de negar esa tensión, sino de habitarla productivamente. No se trata de coreografiar con palabras ni de convertir el taller en un curso de escritura creativa aplicada a la danza.
-              </p>
-            </div>
-          </article>
-
-          <article class="manifesto-card manifesto-card-accent reveal">
-            <div>
-              <span class="card-tag">02 · Antropología Escénica</span>
-              <h3>El puente conceptual transitable</h3>
-              <p>
-                Se trata de tender un puente conceptual —transitable en ambos sentidos— entre la acción física y la palabra, partiendo de la premisa de que danza y teatro comparten una raíz común: <strong>la organización de impulsos con intención comunicativa hacia un espectador o una espectadora</strong>.
-              </p>
-              <p>
-                El programa condensa varios años de investigación del equipo facilitador (RAÍZ Colectiva) en el cruce entre las tradiciones de la antropología teatral latinoamericana —Teatro de los Andes, La Candelaria, Yuyachkani, Malayerba, entre otros colectivos— y la teoría contemporánea de la dramaturgia en danza.
-              </p>
-            </div>
-          </article>
-        </div>
-
-      </div>
-    </section>
-
-
-    <!-- ============================================================
-         OBJETIVOS FORMATIVOS
-         ============================================================ -->
-    <section class="section section-alt" id="objetivos">
-      <div class="section-container">
-        <div class="section-header reveal">
-          <span class="section-eyebrow">Competencias Concretas</span>
-          <h2 class="section-title">Al Finalizar el Taller</h2>
-          <p class="section-lead">Seis capacidades compositivas y analíticas que incorporarás a tu práctica artística o investigativa.</p>
-        </div>
-
-        <div class="objectives-grid">
-          <div class="objective-item reveal">
-            <span class="objective-num">01</span>
-            <p class="objective-text"><strong>Aparato conceptual explícito:</strong> Analizar una pieza o proceso coreográfico a partir de categorías rigurosas <em>(peripecia dinámica/mental, lógica causal/asociativa, actantes, núcleos/catálisis, porosidad)</em>.</p>
-          </div>
-
-          <div class="objective-item reveal">
-            <span class="objective-num">02</span>
-            <p class="objective-text"><strong>Escrituras de impulso:</strong> Aplicar al menos tres metodologías —<em>detonante-objeto, detonante-textura, detonante-fotografía</em>— como herramientas efectivas de generación dramatúrgica.</p>
-          </div>
-
-          <div class="objective-item reveal">
-            <span class="objective-num">03</span>
-            <p class="objective-text"><strong>Partitura física vinculada:</strong> Diseñar una secuencia corporal de <em>entre ocho y doce acciones</em> ligada de manera explícita a un texto matriz propio.</p>
-          </div>
-
-          <div class="objective-item reveal">
-            <span class="objective-num">04</span>
-            <p class="objective-text"><strong>Hallazgo de la fábula:</strong> Sintetizar, a partir de material heterogéneo (textos, imágenes, movimiento), una fábula o núcleo dramatúrgico comunicable.</p>
-          </div>
-
-          <div class="objective-item reveal">
-            <span class="objective-num">05</span>
-            <p class="objective-text"><strong>Genealogía y contexto:</strong> Situar la propia práctica dentro de los referentes de la dramaturgia en danza y de la teoría narrativa estructuralista.</p>
-          </div>
-
-          <div class="objective-item reveal">
-            <span class="objective-num">06</span>
-            <p class="objective-text"><strong>Hoja de ruta aplicable:</strong> Trazar un plan de trabajo dramatúrgico concreto para tu proceso actual: <em>obra en creación, tesis de grado/posgrado, residencia o docencia</em>.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- ============================================================
-         ESTRUCTURA DEL TALLER (DÍA 1 & DÍA 2 INTERACTIVOS)
-         ============================================================ -->
-    <section class="section" id="estructura">
-      <div class="section-container">
-        <div class="section-header reveal">
-          <span class="section-eyebrow">Programa Pedagógico</span>
-          <h2 class="section-title">Estructura del Taller</h2>
-          <p class="section-lead">Dos sesiones sincrónicas sostenidas por una proporción rigurosa entre marco teórico y laboratorio vivencial.</p>
-        </div>
-
-        <!-- Barra de Proporción -->
-        <div class="ratio-visual-bar reveal" role="img" aria-label="Proporción formativa: 60% Teoría, 40% Práctica">
-          <div class="ratio-theory">Teoría · 60% (108 min por jornada)</div>
-          <div class="ratio-practice">Práctica · 40% (72 min por jornada)</div>
-        </div>
-
-        <!-- Selector de Días -->
-        <div class="day-tabs reveal">
-          <button class="day-tab-btn active" data-day="1" type="button">
-            Día 1 · Sábado 12 Sept (8 a 10 AM)
-          </button>
-          <button class="day-tab-btn" data-day="2" type="button">
-            Día 2 · Domingo 13 Sept (8 a 12 AM)
-          </button>
-        </div>
-
-        <!-- Tarjeta Contenido Día 1 -->
-        <article class="day-card day-content-card reveal" data-day="1">
-          <header class="day-header">
-            <span class="day-pill">Jornada 1 · Sábado 12 de Septiembre</span>
-            <h3 class="day-title">De la acción al impulso</h3>
-            <p class="day-subtitle">Fundamentos, genealogía y primera escritura del cuerpo</p>
-          </header>
-
-          <div class="day-blocks-grid">
-            <div class="day-block">
-              <div class="block-header">
-                <span class="block-tag">Bloque Teórico</span>
-                <span class="block-time">108 minutos</span>
-              </div>
-              <ul class="day-list">
-                <li>Apertura y marco epistemológico de la dramaturgia en danza.</li>
-                <li>La paradoja fundacional: etimología y el cuerpo que escribe.</li>
-                <li>La acción como unidad mínima — Joseph Danan y Eugenio Barba.</li>
-                <li>Genealogía: tres arquitecturas fundacionales de la dramaturgia en danza.</li>
-                <li>Patricia Cardona: la doble peripecia y la metáfora del cazador de mariposas.</li>
-                <li>Javier Contreras: tensión dialéctica entre lógica causal y lógica asociativa.</li>
-                <li>Síntesis: la porosidad como principio compositivo.</li>
-              </ul>
-            </div>
-
-            <div class="day-block">
-              <div class="block-header">
-                <span class="block-tag">Bloque Práctico</span>
-                <span class="block-time">72 minutos</span>
-              </div>
-              <ul class="day-list">
-                <li>Calentamiento consciente por focos atencionales y disponibilidad.</li>
-                <li>Improvisación libre registrada en palabras clave.</li>
-                <li>Escritura de impulso I: detonante-objeto personal.</li>
-                <li>Escritura de impulso II: detonante-textura física.</li>
-                <li>Escritura de impulso III: detonante-fotografía significativa.</li>
-                <li>Ronda de intercambio y resonancia de frases semilla.</li>
-                <li>Cierre: selección del tema transversal y asignación de la tarea puente.</li>
-              </ul>
-            </div>
-          </div>
-
-          <blockquote class="day-quote">
-            "Una mano que se levanta puede bendecir, puede golpear, puede suplicar: es una acción."
-            <footer>— Eugenio Barba</footer>
-          </blockquote>
-        </article>
-
-        <!-- Tarjeta Contenido Día 2 -->
-        <article class="day-card day-content-card reveal" data-day="2" style="display: none;">
-          <header class="day-header">
-            <span class="day-pill">Jornada 2 · Domingo 13 de Septiembre</span>
-            <h3 class="day-title">De la estructura a la fábula</h3>
-            <p class="day-subtitle">Composición, polifonía escénica e integración dramatúrgica</p>
-          </header>
-
-          <div class="day-blocks-grid">
-            <div class="day-block">
-              <div class="block-header">
-                <span class="block-tag">Bloque Teórico</span>
-                <span class="block-time">108 minutos</span>
-              </div>
-              <ul class="day-list">
-                <li>Recapitulación dialogada y lectura de las tareas puente individuales.</li>
-                <li>Roland Barthes y Claude Bremond aplicados a la narrativa corporal: núcleos y catálisis.</li>
-                <li>Cardona profundizada: intencionalidad, memoria corporal e histórica, imaginario poético.</li>
-                <li>Las voces de la puesta en escena: espacio, tiempo, luz, sonido y vestuario como polifonía viva.</li>
-                <li>El rol del ojo externo en los procesos de creación en danza.</li>
-              </ul>
-            </div>
-
-            <div class="day-block">
-              <div class="block-header">
-                <span class="block-tag">Bloque Práctico</span>
-                <span class="block-time">72 minutos</span>
-              </div>
-              <ul class="day-list">
-                <li>Exploración corporal estructurada en cinco bloques musicales diferenciados.</li>
-                <li>Selección y profundización de tres momentos cinéticos potentes.</li>
-                <li>Integración: armado del mapa de frases semilla y hallazgo de la fábula.</li>
-                <li>Construcción de la partitura física (8 a 12 acciones articuladas).</li>
-                <li>Cierre del proceso: retroalimentación entre pares y confección de la hoja de ruta propia.</li>
-              </ul>
-            </div>
-          </div>
-
-          <blockquote class="day-quote">
-            "El bailarín, la bailarina, son cazadores de mariposas: pasan la vida capturando algo frágil y vibrante que, en el instante mismo de sujetarlo con fuerza, corre el riesgo de morir en la mano."
-            <footer>— Patricia Cardona</footer>
-          </blockquote>
-        </article>
-
-      </div>
-    </section>
-
-
-    <!-- ============================================================
-         POLIFONÍA ESCÉNICA: LAS 5 VOCES DE LA PUESTA EN ESCENA
-         ============================================================ -->
-    <section class="section section-alt" id="voces">
-      <div class="section-container">
-        <div class="section-header reveal">
-          <span class="section-eyebrow">Dramaturgia Total</span>
-          <h2 class="section-title">Las Voces de la Puesta en Escena</h2>
-          <p class="section-lead">Espacio, tiempo, luz, sonido y vestuario como polifonía activa — nunca un mero decorado pasivo.</p>
-        </div>
-
-        <div class="voices-grid">
-          <div class="voice-card reveal">
-            <svg class="voice-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-            <h4>Espacio</h4>
-            <p>Agente dramático activo que oprime, cobija o libera; nunca un simple contenedor neutro del desplazamiento corporal.</p>
-          </div>
-
-          <div class="voice-card reveal">
-            <svg class="voice-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            <h4>Tiempo</h4>
-            <p>No es el reloj ni la métrica musical, sino la respiración y tensión entre el ritmo interior del intérprete y el del espectador.</p>
-          </div>
-
-          <div class="voice-card reveal">
-            <svg class="voice-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>
-            <h4>Luz</h4>
-            <p>La dramaturgia de la sombra y el foco: define qué se revela y qué se preserva en el misterio frente a la saturación visual.</p>
-          </div>
-
-          <div class="voice-card reveal">
-            <svg class="voice-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
-            <h4>Sonido</h4>
-            <p>Un interlocutor más en escena que dialoga, confronta o sostiene la partitura física, lejos de la música como simple adorno.</p>
-          </div>
-
-          <div class="voice-card reveal">
-            <svg class="voice-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.38 3.46L16 2a4 4 0 01-8 0L3.62 3.46a2 2 0 00-1.34 2.23l.58 3.47a1 1 0 00.99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 002-2V10h2.15a1 1 0 00.99-.84l.58-3.47a2 2 0 00-1.34-2.23z"/></svg>
-            <h4>Vestuario</h4>
-            <p>La segunda piel del personaje y geografía táctil de sentido; descuidarlo es también una decisión dramatúrgica por omisión.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- ============================================================
-         PRODUCTOS FINALES & MATERIALES
-         ============================================================ -->
-    <section class="section" id="productos">
-      <div class="section-container">
-        <div class="section-header reveal">
-          <span class="section-eyebrow">Resultados Tangibles</span>
-          <h2 class="section-title">Al Cierre del Taller</h2>
-          <p class="section-lead">Cada participante concluye las dos jornadas con cuatro materiales concretos, articulados entre sí.</p>
-        </div>
-
-        <div class="products-grid">
-          <div class="product-card reveal">
-            <span class="product-number">01</span>
-            <h4>Texto Matriz</h4>
-            <p>Peripecia mental escrita, articulada sobre un tema transversal propio que nutre y fundamenta el discurso del movimiento.</p>
-          </div>
-
-          <div class="product-card reveal">
-            <span class="product-number">02</span>
-            <h4>Partitura Física</h4>
-            <p>Secuencia coreográfica de ocho a doce acciones físicas rigurosas, ligada de manera explícita y poética al texto matriz.</p>
-          </div>
-
-          <div class="product-card reveal">
-            <span class="product-number">03</span>
-            <h4>Fábula</h4>
-            <p>Síntesis mínima, precisa y comunicable del núcleo dramatúrgico de la obra o proceso en curso.</p>
-          </div>
-
-          <div class="product-card reveal">
-            <span class="product-number">04</span>
-            <h4>Mapa Semilla</h4>
-            <p>Documento de frases semilla que sintetiza el proceso vivido y permite continuar la exploración de forma autónoma.</p>
-          </div>
-        </div>
-
-        <!-- Materiales necesarios -->
-        <div class="materials-columns">
-          <div class="material-box reveal">
-            <h4>Día 1 <span>Requerimientos</span></h4>
-            <ul class="material-list">
-              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Cuaderno o dispositivo para escribir.</li>
-              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Un objeto personal significativo.</li>
-              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Cuatro texturas físicas distintas al alcance de la mano.</li>
-              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Una fotografía personal con carga emotiva o evocadora.</li>
-              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Espacio despejado para moverse cómodamente.</li>
-            </ul>
-          </div>
-
-          <div class="material-box reveal">
-            <h4>Día 2 <span>Además de lo anterior</span></h4>
-            <ul class="material-list">
-              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Conservar la fotografía y las 4 texturas de la primera sesión.</li>
-              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Dos textos o fragmentos propios producidos en la tarea puente.</li>
-              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Tijeras y pegamento o cinta.</li>
-              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Post-its o papeles pequeños de colores.</li>
-              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Una superficie amplia de mesa o suelo para maquetar el mapa.</li>
-            </ul>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-
-    <!-- ============================================================
-         GLOSARIO CONCEPTUAL
-         ============================================================ -->
-    <section class="section section-alt" id="glosario">
-      <div class="section-container">
-        <div class="section-header reveal">
-          <span class="section-eyebrow">Aparato Teórico</span>
-          <h2 class="section-title">Glosario de Términos</h2>
-          <p class="section-lead">Conceptos clave que se despliegan, debaten y ponen en cuerpo a lo largo del taller.</p>
-        </div>
-
-        <div class="glossary-grid">
-          <div class="glossary-item reveal">
-            <span class="glossary-term">Peripecia dinámica</span>
-            <p class="glossary-def">La dimensión visible de la acción escénica: la partitura física, la trayectoria espacial y la coreografía perceptible.</p>
-          </div>
-
-          <div class="glossary-item reveal">
-            <span class="glossary-term">Peripecia mental</span>
-            <p class="glossary-def">La dimensión invisible de la acción: el subtexto, la imagen interna y el viaje afectivo que moviliza al intérprete.</p>
-          </div>
-
-          <div class="glossary-item reveal">
-            <span class="glossary-term">Cazador de mariposas</span>
-            <p class="glossary-def">Metáfora de Patricia Cardona para el intérprete que persigue una imagen mental frágil sin fosilizarla en un gesto vacío o rígido.</p>
-          </div>
-
-          <div class="glossary-item reveal">
-            <span class="glossary-term">Lógica causal-narrativa</span>
-            <p class="glossary-def">Progresión en la que una acción A conduce necesariamente a una acción B por causa dramática consecuente.</p>
-          </div>
-
-          <div class="glossary-item reveal">
-            <span class="glossary-term">Lógica asociativa-poética</span>
-            <p class="glossary-def">Yuxtaposición de imágenes corporales con cualidad evocadora, abierta a conexiones metafóricas no lineales.</p>
-          </div>
-
-          <div class="glossary-item reveal">
-            <span class="glossary-term">Porosidad</span>
-            <p class="glossary-def">Espacios de ambigüedad deliberadamente abiertos en la puesta para que el espectador complete el sentido con su propia vivencia.</p>
-          </div>
-
-          <div class="glossary-item reveal">
-            <span class="glossary-term">Kinema</span>
-            <p class="glossary-def">Unidad mínima de movimiento corporal con valor significante, análoga al fonema del lenguaje verbal.</p>
-          </div>
-
-          <div class="glossary-item reveal">
-            <span class="glossary-term">Actante</span>
-            <p class="glossary-def">Rol funcional en una acción (quien desea, quien ayuda, quien se opone), más allá de la psicología de un personaje realista.</p>
-          </div>
-
-          <div class="glossary-item reveal">
-            <span class="glossary-term">Núcleo / Catálisis</span>
-            <p class="glossary-def">En Roland Barthes: momento de riesgo que bifurca el relato / tejido atmosférico que sostiene y da aire entre núcleos.</p>
-          </div>
-
-          <div class="glossary-item reveal">
-            <span class="glossary-term">Fábula</span>
-            <p class="glossary-def">Síntesis mínima, clara y poética de lo que la obra o el proceso de danza está compartiendo con el público.</p>
-          </div>
-
-          <div class="glossary-item reveal">
-            <span class="glossary-term">Texto matriz</span>
-            <p class="glossary-def">Tejido verbal base, integrado por fragmentos propios y ajenos, que sirve como raíz nutricia para la acción corporal.</p>
-          </div>
-
-          <div class="glossary-item reveal">
-            <span class="glossary-term">Ojo externo</span>
-            <p class="glossary-def">Dispositivo dramatúrgico de verificación crítica que ayuda a contrastar la intención interna con la lectura perceptible del espectador.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- ============================================================
-         FACILITACIÓN & BIBLIOGRAFÍA
-         ============================================================ -->
-    <section class="section" id="facilitador">
-      <div class="section-container">
-        
-        <div class="facilitator-card reveal">
-          <div class="fac-head">
-            <span class="card-tag">Facilitación Oficial</span>
-            <h2 class="fac-name">Alejandro Bustamante Gómez</h2>
-            <p class="fac-role">Director · Intérprete · Co-fundador de RAÍZ Colectiva Teatro (La Paz, Bolivia)</p>
-          </div>
-          <p class="fac-bio">
-            Se formó en el emblemático <strong>Teatro de los Andes</strong> entre 2013 y 2018. Amplió su formación junto a colectivos e investigadores latinoamericanos de referencia como <em>Malayerba, La Candelaria, Yuyachkani, Cristina Castrillo y Kelly Saltz</em>. Co-fundador de <strong>RAÍZ Colectiva Teatro</strong>, coordina desde 2021 una investigación continuada sobre dramaturgia y danza en Latinoamérica, concebida como la base pedagógica y sensible de este taller intensivo.
-          </p>
-        </div>
-
-        <!-- Bibliografía de consulta -->
-        <div class="biblio-box reveal">
-          <h4>Bibliografía y Lecturas de Referencia</h4>
-          <ul class="biblio-grid">
-            <li>Barba, Eugenio — <em>Textos sobre antropología teatral y la práctica del Odin Teatret</em>.</li>
-            <li>Barthes, Roland — <em>Introducción al análisis estructural de los relatos</em>.</li>
-            <li>Bremond, Claude — <em>Lógica del relato</em>.</li>
-            <li>Cardona, Patricia — <em>La dramaturgia del bailarín</em>.</li>
-            <li>Cardona, Patricia — <em>Escritos sobre peripecia dinámica, peripecia mental y cazador de mariposas</em>.</li>
-            <li>Contreras, Javier — <em>Escritos sobre dramaturgia en danza (Colombia)</em>.</li>
-            <li>Danan, Joseph — <em>Escritos sobre dramaturgia contemporánea</em>.</li>
-            <li>Gilpin, Heidi — <em>Danza y filosofía; colaboración dramatúrgica con William Forsythe</em>.</li>
-            <li>Hoghe, Raimund — <em>Documentación del proceso creativo junto a Pina Bausch</em>.</li>
-            <li>Van Kerkhoven, Marianne — <em>Escritos sobre dramaturgia procesual en artes escénicas</em>.</li>
-          </ul>
-        </div>
-
-      </div>
-    </section>
-
-
-    <!-- ============================================================
-         INVERSIÓN & SELECTOR DE DIVISAS POR PAÍS
-         ============================================================ -->
-    <section class="section section-alt" id="inversion">
-      <div class="section-container">
-        <div class="section-header reveal">
-          <span class="section-eyebrow">Aranceles Transparentes</span>
-          <h2 class="section-title">Inversión y Medios de Pago</h2>
-          <p class="section-lead">Abona en tu moneda local desde Bolivia, Argentina, Perú, Colombia, México, Chile, Paraguay o a nivel internacional en USD.</p>
-        </div>
-
-        <div class="pricing-grid">
+      <div class="mx-auto max-w-7xl">
+        <div class="grid gap-12 lg:grid-cols-[1.1fr_.9fr] items-center">
           
-          <!-- Tarjeta de Descuento Pronto Pago -->
-          <div class="pricing-main-card reveal">
-            <span class="pricing-badge-top">⚡ Pronto Pago</span>
-            <div>
-              <span class="price-label">Inscripción Anticipada</span>
-              <div class="price-amount-box">
-                <span class="price-big">45 USD</span>
-                <span class="price-regular">55 USD</span>
-              </div>
-              <p class="price-saving-notice">¡Ahorras 10 USD reservando tu lugar con anticipación!</p>
-
-              <ul class="pricing-checklist">
-                <li>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="20 6 9 17 4 12"/></svg>
-                  <span>Acceso en vivo a las <strong>6 horas intensivas</strong> vía Zoom.</span>
-                </li>
-                <li>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="20 6 9 17 4 12"/></svg>
-                  <span><strong>Grabaciones en HD</strong> disponibles por 30 días posteriores.</span>
-                </li>
-                <li>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="20 6 9 17 4 12"/></svg>
-                  <span>Cuadernillo metodológico con esquemas de composición.</span>
-                </li>
-                <li>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="20 6 9 17 4 12"/></svg>
-                  <span><strong>Certificado Digital</strong> avalado por RAÍZ Colectiva Teatro.</span>
-                </li>
-              </ul>
+          <!-- Left Column: Title & Text Hierarchy -->
+          <div class="relative flex flex-col pt-2">
+            
+            <!-- Lateral pill badge -->
+            <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-[#EAD59E]/40 bg-[#0E1520] px-4 py-1.5 text-xs uppercase tracking-[0.2em] text-[#EAD59E] font-semibold w-fit shadow-sm">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              Taller Intensivo Online · Vía Zoom
             </div>
 
-            <a href="#inscripcion" class="btn-primary" style="width: 100%; text-align: center;">
-              Asegurar Cupo Promocional ($45 USD)
+            <!-- Main Title Block -->
+            <div class="relative">
+              <div class="flex items-center gap-3">
+                <span class="rounded-full bg-[#EAD59E] px-3.5 py-1 text-[11px] font-bold uppercase tracking-[0.25em] text-[#080C12]">
+                  INTENSIVO INTERNACIONAL
+                </span>
+                <span class="text-xs uppercase tracking-[0.3em] text-[#8EB5D4] font-medium">
+                  Septiembre 2026
+                </span>
+              </div>
+
+              <h1 class="mt-4 font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-normal leading-[0.92] text-[#F7F4EB]">
+                Dramaturgia
+                <span class="block font-serif italic text-2xl md:text-3xl lg:text-4xl font-normal text-[#EAD59E] tracking-normal mt-2">
+                  para la
+                </span>
+                <span class="block font-serif text-4xl sm:text-5xl md:text-6xl font-medium tracking-tight text-[#F7F4EB]">
+                  Danza
+                </span>
+              </h1>
+            </div>
+
+            <!-- Subtitle / Tagline -->
+            <p class="mt-6 font-serif text-2xl md:text-3xl leading-relaxed text-[#EAD59E] max-w-xl italic">
+              "Del cuerpo que escribe a la palabra que danza." ✨
+            </p>
+
+            <p class="mt-4 text-base md:text-lg leading-relaxed text-[#C8D2DE] max-w-xl">
+              Un puente conceptual y sensible entre la acción física y la palabra. Herramientas analíticas y compositivas para transitar de la intuición hacia estructuras conscientes sin traicionar la naturaleza no verbal de la danza.
+            </p>
+
+            <!-- Schedule Cards (Sábado 12 y Domingo 13 de Septiembre) -->
+            <div class="mt-8 grid gap-3 sm:grid-cols-2 max-w-xl">
+              <div class="flex items-center gap-3 rounded-2xl border border-[#8EB5D4]/30 bg-[#0E1520] p-4 shadow-md hover:border-[#EAD59E] transition-all">
+                <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#EAD59E]/15 text-[#EAD59E]">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                </div>
+                <div>
+                  <strong class="block text-xs uppercase tracking-wider text-[#EAD59E]">Sábado 12 de Septiembre</strong>
+                  <span class="text-sm font-semibold text-[#F7F4EB]">8:00 a 10:00 AM (2 h)</span>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-3 rounded-2xl border border-[#8EB5D4]/30 bg-[#0E1520] p-4 shadow-md hover:border-[#EAD59E] transition-all">
+                <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#EAD59E]/15 text-[#EAD59E]">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                </div>
+                <div>
+                  <strong class="block text-xs uppercase tracking-wider text-[#EAD59E]">Domingo 13 de Septiembre</strong>
+                  <span class="text-sm font-semibold text-[#F7F4EB]">8:00 a 12:00 AM (4 h)</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Duration & Mode summary -->
+            <div class="mt-4 flex flex-wrap items-center gap-4 text-xs font-medium uppercase tracking-[0.15em] text-[#C8D2DE]">
+              <span class="flex items-center gap-1.5">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-[#EAD59E]"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                6 horas formativas
+              </span>
+              <span class="text-[#8EB5D4]">·</span>
+              <span class="flex items-center gap-1.5">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-[#EAD59E]"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+                Vía Zoom en vivo (+ Grabaciones HD 30 días)
+              </span>
+              <span class="text-[#8EB5D4]">·</span>
+              <span class="flex items-center gap-1.5">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-[#EAD59E]"><polyline points="20 6 9 17 4 12"/></svg>
+                Certificado Digital
+              </span>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="mt-8 flex flex-wrap items-center gap-4">
+              <a
+                href="#inscripcion"
+                class="inline-flex items-center justify-center gap-2 rounded-full bg-[#EAD59E] px-8 py-4 text-sm font-bold uppercase tracking-widest text-[#080C12] transition-all hover:bg-[#F5E6BE] shadow-xl hover:shadow-2xl transform hover:-translate-y-0.5"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 2c-5.518 0-9.998 4.476-9.998 9.993 0 1.763.459 3.483 1.332 5.001L2 22l5.176-1.337c1.472.802 3.125 1.226 4.855 1.226 5.518 0 9.998-4.477 9.998-9.994C22.029 6.476 17.549 2 12.031 2zm0 18.286c-1.503 0-2.973-.404-4.256-1.168l-.305-.181-3.16.817.844-3.048-.198-.319c-.838-1.347-1.282-2.91-1.282-4.512 0-4.571 3.719-8.288 8.297-8.288 4.577 0 8.297 3.717 8.297 8.288 0 4.572-3.72 8.289-8.297 8.289zm4.542-6.208c-.249-.125-1.474-.727-1.703-.81-.229-.083-.395-.125-.561.125-.166.249-.644.81-.789.976-.145.166-.291.187-.54.062-.249-.125-1.052-.388-2.003-1.237-.74-.66-1.24-1.476-1.385-1.725-.145-.249-.015-.384.109-.508.112-.112.249-.291.374-.436.125-.145.166-.249.249-.415.083-.166.042-.312-.021-.436-.062-.125-.561-1.35-.769-1.85-.202-.488-.408-.422-.561-.43l-.478-.008c-.166 0-.436.062-.664.312-.229.249-.873.853-.873 2.079s.894 2.411 1.018 2.577c.125.166 1.758 2.685 4.26 3.766.595.257 1.06.411 1.423.527.598.19 1.142.163 1.572.099.48-.072 1.474-.602 1.682-1.185.208-.582.208-1.08.145-1.185-.062-.104-.228-.166-.477-.291z"/></svg>
+                Inscribirme con Descuento ($45 USD)
+              </a>
+              <a
+                href="#estructura"
+                class="inline-flex items-center justify-center rounded-full border border-[#8EB5D4]/40 bg-[#0E1520]/80 px-7 py-4 text-sm font-semibold uppercase tracking-widest text-[#F7F4EB] transition hover:bg-[#8EB5D4]/10 hover:border-[#EAD59E]"
+              >
+                Ver Programa
+              </a>
+            </div>
+
+          </div>
+
+          <!-- ============================================================
+               COLUMNA DERECHA: AFICHE VISUAL EN SU TARJETA ARQUEADA (COMO EN YOGA)
+               ============================================================ -->
+          <div class="relative flex justify-center w-full">
+            <!-- Decorative curved golden arc background -->
+            <div class="relative w-full max-w-md overflow-hidden rounded-[2.5rem] border border-[#EAD59E]/40 bg-[#0E1520] p-4 shadow-2xl shadow-[#000]/70">
+              <div class="relative overflow-hidden rounded-[2rem] bg-gradient-to-b from-[#141E2D] to-[#0A0F17]">
+                <img
+                  src="assets/afiche.jpg"
+                  alt="Afiche Taller Intensivo Dramaturgia para Danza - RAÍZ Colectiva Teatro"
+                  class="h-auto w-full object-cover transition-transform duration-700 hover:scale-105"
+                  loading="eager"
+                  fetchpriority="high"
+                  onerror="this.src='afiche.jpg'"
+                />
+              </div>
+
+              <!-- Floating pill under image (igual que en yoga) -->
+              <div class="mt-4 flex items-center justify-between px-3 py-2 text-xs font-semibold uppercase tracking-wider text-[#F7F4EB]">
+                <span class="flex items-center gap-1.5 text-[#EAD59E]">
+                  <span class="h-2 w-2 rounded-full bg-[#EAD59E] animate-ping"></span> Cupos Limitados (15–18)
+                </span>
+                <span class="text-[#C8D2DE]">Facilita: Alejandro Bustamante</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+         MANIFESTO & THEMATIC HOOK ("¿POR QUÉ DRAMATURGIA PARA DANZA?")
+         ============================================================ -->
+    <section id="enfoque" class="mx-auto max-w-7xl px-6 py-20 lg:px-10">
+      
+      <!-- Bloque Pregunta Rectora -->
+      <div class="rounded-[2.5rem] bg-gradient-to-br from-[#141E2D] to-[#0E1520] p-8 md:p-14 border border-[#8EB5D4]/30 shadow-2xl relative overflow-hidden mb-16">
+        <div class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.35em] text-[#EAD59E] font-bold mb-3">
+          <span class="h-px w-8 bg-[#EAD59E]"></span>
+          Pregunta Rectora
+        </div>
+        <blockquote class="font-serif text-2xl sm:text-3xl md:text-4xl text-[#EAD59E] leading-relaxed italic mb-6">
+          "¿Cómo transitar desde las potencias poéticas e intuitivas propias de la creación en danza hacia estructuras conscientes y articuladas, <span class="text-[#F7F4EB] not-italic underline decoration-[#EAD59E]/40 underline-offset-8">sin traicionar la naturaleza no verbal de este lenguaje?</span>"
+        </blockquote>
+        <p class="text-base md:text-lg leading-relaxed text-[#C8D2DE] font-light max-w-3xl">
+          Esta pregunta no se responde de manera unívoca a lo largo de las seis horas del programa. Se sostiene como <strong>tensión productiva</strong>: entre estructura y pulsión, entre lo dicho y lo poroso, entre la peripecia visible y la invisible.
+        </p>
+      </div>
+
+      <div class="text-center max-w-3xl mx-auto mb-14">
+        <div class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.35em] text-[#EAD59E] font-bold">
+          <span class="h-px w-10 bg-[#EAD59E]"></span>
+          Fundamentación y Propósito
+          <span class="h-px w-10 bg-[#EAD59E]"></span>
+        </div>
+        <h2 class="mt-3 font-serif text-4xl md:text-5xl lg:text-6xl text-[#F7F4EB]">
+          ¿Por qué Dramaturgia para Danza?
+        </h2>
+      </div>
+
+      <div class="grid gap-8 lg:grid-cols-2 items-stretch">
+        
+        <!-- Card 1: La Paradoja Fundacional -->
+        <div class="rounded-[2.5rem] bg-[#0E1520] p-8 md:p-12 text-[#F7F4EB] shadow-2xl relative overflow-hidden flex flex-col justify-between border border-[#8EB5D4]/25">
+          <div>
+            <div class="mb-4 inline-flex items-center gap-2 rounded-full bg-[#8EB5D4]/15 px-3.5 py-1 text-xs uppercase tracking-widest text-[#EAD59E] font-bold">
+              01 · Epistemología Teatral
+            </div>
+            <h3 class="font-serif text-3xl md:text-4xl text-[#F7F4EB] leading-tight">
+              La Paradoja Fundacional
+            </h3>
+            <p class="mt-6 text-lg leading-relaxed text-[#C8D2DE] font-light">
+              La dramaturgia, como término y como disciplina, nace en el siglo XVIII de la mano de Gotthold Ephraim Lessing en su <em>Hamburgische Dramaturgie</em>, concebida originalmente como el arte de componer obras ancladas en la palabra escrita. Trasladar esa herencia a un arte que se piensa y compone fundamentalmente a través del cuerpo en movimiento constituye un desafío epistemológico real.
+            </p>
+            <p class="mt-4 text-base leading-relaxed text-[#8EB5D4]">
+              No se trata de coreografiar con palabras ni de convertir el taller en escritura creativa aplicada. Se trata de tender un puente transitable en ambos sentidos.
+            </p>
+          </div>
+
+          <div class="mt-8 pt-6 border-t border-[#8EB5D4]/20 flex items-center gap-4 text-sm text-[#EAD59E]">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/></svg>
+            <span>Un espacio de investigación riguroso, sensible y replicable.</span>
+          </div>
+        </div>
+
+        <!-- Card 2: El Puente Conceptual y Somático -->
+        <div class="rounded-[2.5rem] border border-[#EAD59E]/40 bg-[#141E2D]/80 p-8 md:p-12 shadow-xl flex flex-col justify-between">
+          <div>
+            <div class="mb-4 inline-flex items-center gap-2 rounded-full bg-[#EAD59E]/15 px-3.5 py-1 text-xs uppercase tracking-widest text-[#EAD59E] font-bold">
+              02 · Antropología Escénica
+            </div>
+            <h3 class="font-serif text-3xl md:text-4xl text-[#F7F4EB] leading-tight">
+              El Cuerpo que Organiza Impulsos
+            </h3>
+            <p class="mt-6 text-lg leading-relaxed text-[#C8D2DE]">
+              Danza y teatro comparten una raíz común: <strong>la organización de impulsos con intención comunicativa hacia un espectador</strong>. El programa condensa varios años de investigación del equipo facilitador en el cruce entre las tradiciones de la antropología teatral latinoamericana —Teatro de los Andes, La Candelaria, Yuyachkani, Malayerba— y la teoría contemporánea de la dramaturgia en danza.
+            </p>
+          </div>
+
+          <div class="mt-8 pt-6 border-t border-[#8EB5D4]/20">
+            <div class="grid grid-cols-3 gap-2 text-center">
+              <div class="p-3 rounded-xl bg-[#0E1520] border border-[#8EB5D4]/30">
+                <span class="block font-serif text-xl font-bold text-[#EAD59E]">Acción</span>
+                <span class="text-[11px] text-[#C8D2DE] uppercase">Unidad Mínima</span>
+              </div>
+              <div class="p-3 rounded-xl bg-[#0E1520] border border-[#8EB5D4]/30">
+                <span class="block font-serif text-xl font-bold text-[#A9C8E2]">Porosidad</span>
+                <span class="text-[11px] text-[#C8D2DE] uppercase">Sentido Abierto</span>
+              </div>
+              <div class="p-3 rounded-xl bg-[#0E1520] border border-[#8EB5D4]/30">
+                <span class="block font-serif text-xl font-bold text-[#F7F4EB]">Fábula</span>
+                <span class="text-[11px] text-[#C8D2DE] uppercase">Síntesis Clara</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+         OBJETIVOS: AL FINALIZAR EL TALLER
+         ============================================================ -->
+    <section class="border-t border-[#8EB5D4]/20 bg-[#0A0E17] px-6 py-20 lg:px-10">
+      <div class="mx-auto max-w-7xl">
+        <div class="text-center max-w-3xl mx-auto mb-14">
+          <div class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.35em] text-[#EAD59E] font-bold">
+            <span class="h-px w-10 bg-[#EAD59E]"></span>
+            Competencias Adquiridas
+            <span class="h-px w-10 bg-[#EAD59E]"></span>
+          </div>
+          <h2 class="mt-3 font-serif text-4xl md:text-5xl lg:text-6xl text-[#F7F4EB]">
+            Al Finalizar el Taller
+          </h2>
+          <p class="mt-3 text-base text-[#C8D2DE]">
+            Seis herramientas concretas para aplicar de inmediato en tu creación, tesis o labor pedagógica.
+          </p>
+        </div>
+
+        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div class="rounded-2xl border border-[#8EB5D4]/25 bg-[#0E1520] p-6 shadow-sm flex flex-col justify-between hover:border-[#EAD59E] transition-all">
+            <div>
+              <span class="font-display text-4xl text-[#EAD59E] block mb-2">01</span>
+              <h3 class="font-serif text-xl font-bold text-[#F7F4EB] mb-2">Aparato Conceptual Explícito</h3>
+              <p class="text-xs leading-relaxed text-[#C8D2DE]">Analizar una pieza de danza con categorías rigurosas: peripecia dinámica/mental, lógica causal/asociativa, actantes, núcleos/catálisis y porosidad.</p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-[#8EB5D4]/15 text-[11px] font-semibold text-[#EAD59E] uppercase tracking-wider">
+              Análisis y Crítica
+            </div>
+          </div>
+
+          <div class="rounded-2xl border border-[#8EB5D4]/25 bg-[#0E1520] p-6 shadow-sm flex flex-col justify-between hover:border-[#EAD59E] transition-all">
+            <div>
+              <span class="font-display text-4xl text-[#EAD59E] block mb-2">02</span>
+              <h3 class="font-serif text-xl font-bold text-[#F7F4EB] mb-2">Escrituras de Impulso</h3>
+              <p class="text-xs leading-relaxed text-[#C8D2DE]">Aplicar tres metodologías concretas —detonante-objeto, detonante-textura y detonante-fotografía— como generadores de material dramatúrgico.</p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-[#8EB5D4]/15 text-[11px] font-semibold text-[#EAD59E] uppercase tracking-wider">
+              Creación de Material
+            </div>
+          </div>
+
+          <div class="rounded-2xl border border-[#8EB5D4]/25 bg-[#0E1520] p-6 shadow-sm flex flex-col justify-between hover:border-[#EAD59E] transition-all">
+            <div>
+              <span class="font-display text-4xl text-[#EAD59E] block mb-2">03</span>
+              <h3 class="font-serif text-xl font-bold text-[#F7F4EB] mb-2">Partitura Física Vinculada</h3>
+              <p class="text-xs leading-relaxed text-[#C8D2DE]">Diseñar una secuencia de entre ocho y doce acciones ligada de manera explícita a un texto matriz propio.</p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-[#8EB5D4]/15 text-[11px] font-semibold text-[#EAD59E] uppercase tracking-wider">
+              Composición Corporal
+            </div>
+          </div>
+
+          <div class="rounded-2xl border border-[#8EB5D4]/25 bg-[#0E1520] p-6 shadow-sm flex flex-col justify-between hover:border-[#EAD59E] transition-all">
+            <div>
+              <span class="font-display text-4xl text-[#EAD59E] block mb-2">04</span>
+              <h3 class="font-serif text-xl font-bold text-[#F7F4EB] mb-2">Hallazgo de la Fábula</h3>
+              <p class="text-xs leading-relaxed text-[#C8D2DE]">Sintetizar, a partir de material heterogéneo (textos, imágenes, movimiento), una fábula o núcleo dramatúrgico comunicable al público.</p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-[#8EB5D4]/15 text-[11px] font-semibold text-[#EAD59E] uppercase tracking-wider">
+              Síntesis de Sentido
+            </div>
+          </div>
+
+          <div class="rounded-2xl border border-[#8EB5D4]/25 bg-[#0E1520] p-6 shadow-sm flex flex-col justify-between hover:border-[#EAD59E] transition-all">
+            <div>
+              <span class="font-display text-4xl text-[#EAD59E] block mb-2">05</span>
+              <h3 class="font-serif text-xl font-bold text-[#F7F4EB] mb-2">Genealogía de Referentes</h3>
+              <p class="text-xs leading-relaxed text-[#C8D2DE]">Situar la propia práctica dentro de la tradición de la dramaturgia en danza y la teoría narrativa estructuralista (Cardona, Barba, Barthes).</p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-[#8EB5D4]/15 text-[11px] font-semibold text-[#EAD59E] uppercase tracking-wider">
+              Marco Teórico
+            </div>
+          </div>
+
+          <div class="rounded-2xl border border-[#8EB5D4]/25 bg-[#0E1520] p-6 shadow-sm flex flex-col justify-between hover:border-[#EAD59E] transition-all">
+            <div>
+              <span class="font-display text-4xl text-[#EAD59E] block mb-2">06</span>
+              <h3 class="font-serif text-xl font-bold text-[#F7F4EB] mb-2">Hoja de Ruta Propia</h3>
+              <p class="text-xs leading-relaxed text-[#C8D2DE]">Diseñar un plan de trabajo dramatúrgico aplicable a tu proceso creativo en curso: obra, tesis, residencia o laboratorio propio.</p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-[#8EB5D4]/15 text-[11px] font-semibold text-[#EAD59E] uppercase tracking-wider">
+              Transferencia Práctica
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+         ESTRUCTURA DEL TALLER: DÍA 1 Y DÍA 2 INTERACTIVOS
+         ============================================================ -->
+    <section id="estructura" class="mx-auto max-w-7xl px-6 py-20 lg:px-10 border-t border-[#8EB5D4]/20">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+        <div>
+          <div class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.35em] text-[#EAD59E] font-bold">
+            <span class="h-px w-8 bg-[#EAD59E]"></span>
+            Programa Formativo
+          </div>
+          <h2 class="mt-2 font-serif text-4xl md:text-5xl lg:text-6xl text-[#F7F4EB]">
+            Estructura de las 2 Jornadas
+          </h2>
+        </div>
+        <p class="text-sm md:text-base text-[#C8D2DE] max-w-md">
+          Dos sesiones sincrónicas sostenidas por una proporción constante de <strong>60% teoría (108 min)</strong> y <strong>40% práctica (72 min)</strong>.
+        </p>
+      </div>
+
+      <!-- Barra de Proporción -->
+      <div class="flex h-12 rounded-full overflow-hidden border border-[#8EB5D4]/30 mb-8 shadow-lg">
+        <div class="flex-[6] bg-gradient-to-r from-[#141E2D] to-[#1E2E44] flex items-center justify-center text-xs font-semibold uppercase tracking-widest text-[#A9C8E2]">
+          Teoría · 60% (108 min)
+        </div>
+        <div class="flex-[4] bg-gradient-to-r from-[#C4AA6A] to-[#EAD59E] flex items-center justify-center text-xs font-bold uppercase tracking-widest text-[#080C12]">
+          Práctica · 40% (72 min)
+        </div>
+      </div>
+
+      <!-- Botones de Días -->
+      <div class="flex justify-center gap-4 mb-8">
+        <button id="tab-btn-day1" type="button" class="rounded-full bg-[#EAD59E] px-8 py-3 text-xs font-bold uppercase tracking-widest text-[#080C12] shadow-md transition-all">
+          Día 1 · Sábado 12 Sept (8 a 10 AM)
+        </button>
+        <button id="tab-btn-day2" type="button" class="rounded-full border border-[#8EB5D4]/40 bg-[#0E1520] px-8 py-3 text-xs font-bold uppercase tracking-widest text-[#C8D2DE] hover:border-[#EAD59E] transition-all">
+          Día 2 · Domingo 13 Sept (8 a 12 AM)
+        </button>
+      </div>
+
+      <!-- Card Día 1 -->
+      <div id="day-content-1" class="rounded-[2.5rem] border border-[#8EB5D4]/30 bg-[#0E1520] p-8 md:p-12 shadow-2xl">
+        <div class="border-b border-[#8EB5D4]/20 pb-6 mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-widest text-[#EAD59E]">Jornada 1 · Sábado 12 de Septiembre</span>
+            <h3 class="font-serif text-3xl md:text-4xl text-[#F7F4EB] mt-1">De la acción al impulso</h3>
+            <p class="text-sm text-[#A9C8E2] mt-1">Fundamentos, genealogía y primera escritura del cuerpo</p>
+          </div>
+          <span class="rounded-full bg-[#EAD59E]/15 px-4 py-1.5 text-xs font-semibold text-[#EAD59E] w-fit">
+            Horario: 8:00 a 10:00 AM
+          </span>
+        </div>
+
+        <div class="grid gap-8 md:grid-cols-2 mb-8">
+          <div class="rounded-2xl bg-[#080C12]/80 border border-[#8EB5D4]/20 p-6">
+            <div class="flex items-center justify-between mb-4 border-b border-[#8EB5D4]/15 pb-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-[#EAD59E]">Bloque Teórico</span>
+              <span class="text-[11px] text-[#A9C8E2] bg-[#8EB5D4]/10 px-2.5 py-0.5 rounded-full">108 min</span>
+            </div>
+            <ul class="space-y-2.5 text-xs leading-relaxed text-[#C8D2DE]">
+              <li>• Apertura y marco epistemológico de la dramaturgia para danza.</li>
+              <li>• La paradoja fundacional: etimología y el cuerpo que escribe.</li>
+              <li>• La acción como unidad mínima — Joseph Danan y Eugenio Barba.</li>
+              <li>• Genealogía: tres arquitecturas fundacionales de la dramaturgia en danza.</li>
+              <li>• Patricia Cardona — la doble peripecia y la metáfora del cazador de mariposas.</li>
+              <li>• Javier Contreras — tensión dialéctica entre lógica causal y lógica asociativa.</li>
+              <li>• Síntesis: la porosidad como principio compositivo.</li>
+            </ul>
+          </div>
+
+          <div class="rounded-2xl bg-[#080C12]/80 border border-[#8EB5D4]/20 p-6">
+            <div class="flex items-center justify-between mb-4 border-b border-[#8EB5D4]/15 pb-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-[#EAD59E]">Bloque Práctico</span>
+              <span class="text-[11px] text-[#A9C8E2] bg-[#8EB5D4]/10 px-2.5 py-0.5 rounded-full">72 min</span>
+            </div>
+            <ul class="space-y-2.5 text-xs leading-relaxed text-[#C8D2DE]">
+              <li>• Calentamiento consciente por focos atencionales y disponibilidad.</li>
+              <li>• Improvisación libre registrada en palabras clave.</li>
+              <li>• Escritura de impulso I — detonante-objeto personal.</li>
+              <li>• Escritura de impulso II — detonante-textura física.</li>
+              <li>• Escritura de impulso III — detonante-fotografía significativa.</li>
+              <li>• Ronda de resonancia de frases semilla.</li>
+              <li>• Cierre: selección del tema transversal y tarea puente.</li>
+            </ul>
+          </div>
+        </div>
+
+        <blockquote class="rounded-2xl bg-[#141E2D]/60 border-l-4 border-[#EAD59E] p-6 font-serif italic text-lg text-[#F7F4EB]">
+          "Una mano que se levanta puede bendecir, puede golpear, puede suplicar: es una acción."
+          <footer class="font-sans not-italic text-xs font-bold uppercase tracking-wider text-[#EAD59E] mt-2">— Eugenio Barba</footer>
+        </blockquote>
+      </div>
+
+      <!-- Card Día 2 (Oculto inicialmente) -->
+      <div id="day-content-2" class="rounded-[2.5rem] border border-[#8EB5D4]/30 bg-[#0E1520] p-8 md:p-12 shadow-2xl hidden">
+        <div class="border-b border-[#8EB5D4]/20 pb-6 mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-widest text-[#EAD59E]">Jornada 2 · Domingo 13 de Septiembre</span>
+            <h3 class="font-serif text-3xl md:text-4xl text-[#F7F4EB] mt-1">De la estructura a la fábula</h3>
+            <p class="text-sm text-[#A9C8E2] mt-1">Composición, polifonía escénica e integración</p>
+          </div>
+          <span class="rounded-full bg-[#EAD59E]/15 px-4 py-1.5 text-xs font-semibold text-[#EAD59E] w-fit">
+            Horario: 8:00 a 12:00 AM (mediodía)
+          </span>
+        </div>
+
+        <div class="grid gap-8 md:grid-cols-2 mb-8">
+          <div class="rounded-2xl bg-[#080C12]/80 border border-[#8EB5D4]/20 p-6">
+            <div class="flex items-center justify-between mb-4 border-b border-[#8EB5D4]/15 pb-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-[#EAD59E]">Bloque Teórico</span>
+              <span class="text-[11px] text-[#A9C8E2] bg-[#8EB5D4]/10 px-2.5 py-0.5 rounded-full">108 min</span>
+            </div>
+            <ul class="space-y-2.5 text-xs leading-relaxed text-[#C8D2DE]">
+              <li>• Recapitulación dialogada y lectura de las tareas puente individuales.</li>
+              <li>• Roland Barthes y Claude Bremond aplicados al movimiento (núcleos y catálisis).</li>
+              <li>• Cardona profundizada: intencionalidad, memoria corporal e imaginario poético.</li>
+              <li>• Las voces de la puesta en escena: espacio, tiempo, luz, sonido y vestuario como polifonía.</li>
+              <li>• El dispositivo del ojo externo en la danza contemporánea.</li>
+            </ul>
+          </div>
+
+          <div class="rounded-2xl bg-[#080C12]/80 border border-[#8EB5D4]/20 p-6">
+            <div class="flex items-center justify-between mb-4 border-b border-[#8EB5D4]/15 pb-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-[#EAD59E]">Bloque Práctico</span>
+              <span class="text-[11px] text-[#A9C8E2] bg-[#8EB5D4]/10 px-2.5 py-0.5 rounded-full">72 min</span>
+            </div>
+            <ul class="space-y-2.5 text-xs leading-relaxed text-[#C8D2DE]">
+              <li>• Exploración corporal en cinco bloques musicales diferenciados.</li>
+              <li>• Selección y profundización de tres momentos cinéticos potentes.</li>
+              <li>• Integración: armado del mapa de frases semilla y hallazgo de la fábula.</li>
+              <li>• Confección de la partitura física articulada (8 a 12 acciones).</li>
+              <li>• Retroalimentación entre pares y confección de la hoja de ruta propia.</li>
+            </ul>
+          </div>
+        </div>
+
+        <blockquote class="rounded-2xl bg-[#141E2D]/60 border-l-4 border-[#EAD59E] p-6 font-serif italic text-lg text-[#F7F4EB]">
+          "El bailarín, la bailarina, son cazadores de mariposas: pasan la vida capturando algo frágil y vibrante que, en el instante mismo de sujetarlo con fuerza, corre el riesgo de morir en la mano."
+          <footer class="font-sans not-italic text-xs font-bold uppercase tracking-wider text-[#EAD59E] mt-2">— Patricia Cardona</footer>
+        </blockquote>
+      </div>
+
+    </section>
+
+
+    <!-- ============================================================
+         POLIFONÍA ESCÉNICA: LAS 5 VOCES
+         ============================================================ -->
+    <section id="voces" class="border-t border-[#8EB5D4]/20 bg-[#0A0E17] px-6 py-20 lg:px-10">
+      <div class="mx-auto max-w-7xl">
+        <div class="text-center max-w-3xl mx-auto mb-14">
+          <div class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.35em] text-[#EAD59E] font-bold">
+            <span class="h-px w-10 bg-[#EAD59E]"></span>
+            Dramaturgia Total
+            <span class="h-px w-10 bg-[#EAD59E]"></span>
+          </div>
+          <h2 class="mt-3 font-serif text-4xl md:text-5xl lg:text-6xl text-[#F7F4EB]">
+            Las Voces de la Puesta en Escena
+          </h2>
+          <p class="mt-3 text-base text-[#C8D2DE]">
+            Espacio, tiempo, luz, sonido y vestuario como polifonía activa — nunca un mero decorado pasivo.
+          </p>
+        </div>
+
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
+          <div class="rounded-2xl border border-[#8EB5D4]/25 bg-[#0E1520] p-6 shadow-sm hover:border-[#EAD59E] transition-all">
+            <svg class="h-8 w-8 text-[#EAD59E] mb-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+            <h3 class="font-serif text-xl font-bold text-[#F7F4EB] mb-2">Espacio</h3>
+            <p class="text-xs leading-relaxed text-[#C8D2DE]">Agente activo que oprime, cobija o libera; nunca un mero contenedor neutro de la acción corporal.</p>
+          </div>
+
+          <div class="rounded-2xl border border-[#8EB5D4]/25 bg-[#0E1520] p-6 shadow-sm hover:border-[#EAD59E] transition-all">
+            <svg class="h-8 w-8 text-[#EAD59E] mb-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <h3 class="font-serif text-xl font-bold text-[#F7F4EB] mb-2">Tiempo</h3>
+            <p class="text-xs leading-relaxed text-[#C8D2DE]">No es el reloj ni el compás, sino la respiración y tensión entre el ritmo del intérprete y el del espectador.</p>
+          </div>
+
+          <div class="rounded-2xl border border-[#8EB5D4]/25 bg-[#0E1520] p-6 shadow-sm hover:border-[#EAD59E] transition-all">
+            <svg class="h-8 w-8 text-[#EAD59E] mb-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/></svg>
+            <h3 class="font-serif text-xl font-bold text-[#F7F4EB] mb-2">Luz</h3>
+            <p class="text-xs leading-relaxed text-[#C8D2DE]">La dramaturgia de la sombra y el foco: define qué se revela y qué se vela ante la saturación visual.</p>
+          </div>
+
+          <div class="rounded-2xl border border-[#8EB5D4]/25 bg-[#0E1520] p-6 shadow-sm hover:border-[#EAD59E] transition-all">
+            <svg class="h-8 w-8 text-[#EAD59E] mb-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+            <h3 class="font-serif text-xl font-bold text-[#F7F4EB] mb-2">Sonido</h3>
+            <p class="text-xs leading-relaxed text-[#C8D2DE]">Un interlocutor más en escena que dialoga o confronta la partitura física, no un simple fondo decorativo.</p>
+          </div>
+
+          <div class="rounded-2xl border border-[#8EB5D4]/25 bg-[#0E1520] p-6 shadow-sm hover:border-[#EAD59E] transition-all">
+            <svg class="h-8 w-8 text-[#EAD59E] mb-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.38 3.46L16 2a4 4 0 01-8 0L3.62 3.46a2 2 0 00-1.34 2.23l.58 3.47a1 1 0 00.99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 002-2V10h2.15a1 1 0 00.99-.84l.58-3.47a2 2 0 00-1.34-2.23z"/></svg>
+            <h3 class="font-serif text-xl font-bold text-[#F7F4EB] mb-2">Vestuario</h3>
+            <p class="text-xs leading-relaxed text-[#C8D2DE]">La piel del personaje y geografía táctil; descuidarlo es una decisión dramatúrgica por omisión.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+         FACILITADOR (ALEJANDRO BUSTAMANTE)
+         ============================================================ -->
+    <section id="facilitador" class="mx-auto max-w-7xl px-6 py-20 lg:px-10 border-t border-[#8EB5D4]/20">
+      <div class="rounded-[2.5rem] bg-[#0E1520] p-8 md:p-14 text-[#F7F4EB] shadow-2xl border border-[#8EB5D4]/25">
+        <div class="max-w-3xl">
+          <div class="mb-3 inline-flex items-center gap-2 text-xs uppercase tracking-[0.35em] text-[#EAD59E] font-bold">
+            <span class="h-px w-10 bg-[#EAD59E]"></span>
+            Facilitación Oficial
+          </div>
+          <h2 class="font-serif text-4xl md:text-5xl text-[#F7F4EB]">Alejandro Bustamante Gómez</h2>
+          <p class="mt-2 text-base font-semibold text-[#EAD59E]">Director Teatral · Intérprete · Co-fundador de RAÍZ Colectiva Teatro (La Paz, Bolivia)</p>
+
+          <p class="mt-6 text-base leading-relaxed text-[#C8D2DE] font-light">
+            Se formó en el emblemático <strong>Teatro de los Andes</strong> entre 2013 y 2018. Amplió su formación junto a colectivos e investigadores latinoamericanos de referencia como <em>Malayerba, La Candelaria, Yuyachkani, Cristina Castrillo y Kelly Saltz</em>.
+          </p>
+
+          <p class="mt-4 text-base leading-relaxed text-[#C8D2DE] font-light">
+            Co-fundador de <strong>RAÍZ Colectiva Teatro</strong>, coordina desde 2021 una investigación continuada sobre dramaturgia y danza en Latinoamérica, concebida como la base pedagógica y sensible de este taller intensivo.
+          </p>
+
+          <div class="mt-8 pt-6 border-t border-[#8EB5D4]/20 flex flex-wrap items-center gap-6 text-xs text-[#C8D2DE]">
+            <span><strong>Organiza:</strong> RAÍZ Colectiva Teatro</span>
+            <span>·</span>
+            <a href="https://www.youtube.com/@RaizColectiva" target="_blank" rel="noopener noreferrer" class="text-[#EAD59E] hover:underline">Canal de YouTube →</a>
+            <span>·</span>
+            <a href="https://www.instagram.com/raizcolectivateatro/" target="_blank" rel="noopener noreferrer" class="text-[#EAD59E] hover:underline">@raizcolectivateatro →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================================================
+         INVERSIÓN & COTIZADOR POR PAÍS (COMO EN YOGA)
+         ============================================================ -->
+    <section id="inversion" class="border-t border-[#8EB5D4]/20 bg-[#0A0E17] px-6 py-20 lg:px-10">
+      <div class="mx-auto max-w-7xl">
+        <div class="text-center max-w-3xl mx-auto mb-14">
+          <div class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.35em] text-[#EAD59E] font-bold">
+            <span class="h-px w-10 bg-[#EAD59E]"></span>
+            Aranceles Transparentes
+            <span class="h-px w-10 bg-[#EAD59E]"></span>
+          </div>
+          <h2 class="mt-3 font-serif text-4xl md:text-5xl lg:text-6xl text-[#F7F4EB]">
+            Inversión y Formas de Pago
+          </h2>
+          <p class="mt-3 text-base text-[#C8D2DE]">
+            Abona en tu moneda local desde Bolivia, Argentina, Perú, Colombia, Paraguay, México o Chile, o en USD vía PayPal / Tarjeta.
+          </p>
+        </div>
+
+        <div class="grid gap-8 lg:grid-cols-[.9fr_1.1fr] items-center">
+          
+          <!-- Pricing Card con Descuento -->
+          <div class="rounded-[2.5rem] border-2 border-[#EAD59E] bg-[#0E1520] p-8 md:p-10 shadow-2xl relative overflow-hidden">
+            <div class="absolute top-0 right-0 bg-[#EAD59E] text-[#080C12] text-[11px] font-bold uppercase tracking-widest px-6 py-2 rounded-bl-2xl shadow-sm">
+              ⚡ Descuento Pronto Pago
+            </div>
+
+            <div class="mt-4">
+              <span class="text-xs uppercase tracking-[0.2em] font-semibold text-[#EAD59E]">Inscripción Anticipada</span>
+              <div class="mt-2 flex items-baseline gap-3">
+                <span class="font-serif text-6xl font-bold text-[#F7F4EB]">45 USD</span>
+                <span class="text-2xl text-[#C8D2DE]/40 line-through">55 USD</span>
+              </div>
+              <p class="mt-2 text-xs text-[#EAD59E] font-semibold">
+                ¡Ahorras 10 USD inscribiéndote con descuento anticipado!
+              </p>
+            </div>
+
+            <div class="my-6 h-px bg-[#8EB5D4]/20"></div>
+
+            <ul class="space-y-3 text-xs md:text-sm text-[#C8D2DE]">
+              <li class="flex items-center gap-2.5">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" class="text-[#EAD59E] shrink-0"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Acceso completo a las 6 horas de intensivo en vivo vía Zoom.</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" class="text-[#EAD59E] shrink-0"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Grabaciones en HD durante 30 días posteriores.</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" class="text-[#EAD59E] shrink-0"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Cuadernillo descargable de esquemas dramatúrgicos y glosario.</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" class="text-[#EAD59E] shrink-0"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Certificado Digital emitido por RAÍZ Colectiva Teatro.</span>
+              </li>
+            </ul>
+
+            <a
+              href="#inscripcion"
+              class="mt-8 block w-full rounded-full bg-[#EAD59E] py-4 text-center text-sm font-bold uppercase tracking-widest text-[#080C12] transition hover:bg-[#F5E6BE] shadow-md"
+            >
+              Inscribirme con Pronto Pago ($45 USD)
             </a>
           </div>
 
-          <!-- Cotizador por País -->
-          <div class="country-calculator-card reveal">
-            <div>
-              <span class="card-tag">Calculadora Internacional</span>
-              <h3 class="calc-title">Cotiza en tu Moneda Local</h3>
-              <p class="calc-desc">Selecciona tu país de residencia para consultar el importe estimado y las vías de transferencia bancaria habilitadas sin comisiones excesivas.</p>
-
-              <div class="form-group-calc">
-                <label for="calc-country-select">Selecciona tu País</label>
-                <select id="calc-country-select" class="country-select">
-                  <!-- Llenado dinámico desde JS -->
-                </select>
-              </div>
-
-              <div class="country-result-box">
-                <div class="res-header">
-                  <span class="res-tag">Monto con Descuento:</span>
-                  <span id="calc-price-display" class="res-price">Bs. 350 BOB</span>
-                </div>
-                <p id="calc-payment-display" class="res-payment-info">
-                  Cargando información de pago...
-                </p>
-              </div>
+          <!-- Local Currency Selector Box -->
+          <div class="rounded-[2.5rem] border border-[#8EB5D4]/30 bg-[#141E2D]/80 p-8 md:p-10 shadow-xl">
+            <div class="flex items-center gap-2 text-xs uppercase tracking-widest text-[#EAD59E] font-bold mb-4">
+              <span class="h-2 w-2 rounded-full bg-[#EAD59E]"></span>
+              Cotizador por País en Moneda Local
             </div>
+            
+            <h3 class="font-serif text-3xl text-[#F7F4EB] mb-2">
+              Selecciona tu país de residencia:
+            </h3>
+            <p class="text-xs text-[#C8D2DE] mb-6">
+              Te mostramos el valor en tu moneda y las vías de transferencia bancaria habilitadas.
+            </p>
 
-            <a id="calc-whatsapp-btn" href="#" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="width: 100%; text-align: center;">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 2c-5.518 0-9.998 4.476-9.998 9.993 0 1.763.459 3.483 1.332 5.001L2 22l5.176-1.337c1.472.802 3.125 1.226 4.855 1.226 5.518 0 9.998-4.477 9.998-9.994C22.029 6.476 17.549 2 12.031 2zm0 18.286c-1.503 0-2.973-.404-4.256-1.168l-.305-.181-3.16.817.844-3.048-.198-.319c-.838-1.347-1.282-2.91-1.282-4.512 0-4.571 3.719-8.288 8.297-8.288 4.577 0 8.297 3.717 8.297 8.288 0 4.572-3.72 8.289-8.297 8.289zm4.542-6.208c-.249-.125-1.474-.727-1.703-.81-.229-.083-.395-.125-.561.125-.166.249-.644.81-.789.976-.145.166-.291.187-.54.062-.249-.125-1.052-.388-2.003-1.237-.74-.66-1.24-1.476-1.385-1.725-.145-.249-.015-.384.109-.508.112-.112.249-.291.374-.436.125-.145.166-.249.249-.415.083-.166.042-.312-.021-.436-.062-.125-.561-1.35-.769-1.85-.202-.488-.408-.422-.561-.43l-.478-.008c-.166 0-.436.062-.664.312-.229.249-.873.853-.873 2.079s.894 2.411 1.018 2.577c.125.166 1.758 2.685 4.26 3.766.595.257 1.06.411 1.423.527.598.19 1.142.163 1.572.099.48-.072 1.474-.602 1.682-1.185.208-.582.208-1.08.145-1.185-.062-.104-.228-.166-.477-.291z"/></svg>
-              Consultar datos de pago por WhatsApp
-            </a>
+            <div class="grid gap-4">
+              <label class="grid gap-1.5 text-xs uppercase font-semibold tracking-wider text-[#EAD59E]">
+                País
+                <select
+                  id="calc-country-select"
+                  class="rounded-2xl border border-[#8EB5D4]/40 bg-[#0E1520] px-4 py-3.5 text-sm font-medium text-[#F7F4EB] outline-none focus:border-[#EAD59E] shadow-sm cursor-pointer"
+                >
+                  <!-- Poblado dinámicamente -->
+                </select>
+              </label>
+
+              <!-- Calculated Price Display -->
+              <div class="rounded-2xl bg-[#080C12] p-5 border border-[#8EB5D4]/30 shadow-sm">
+                <div class="flex items-baseline justify-between">
+                  <span class="text-xs uppercase tracking-wider text-[#EAD59E] font-bold">
+                    Monto con Descuento:
+                  </span>
+                  <div class="text-right">
+                    <strong id="calc-price-display" class="font-serif text-3xl font-bold text-[#F7F4EB]">
+                      Bs. 350 BOB
+                    </strong>
+                  </div>
+                </div>
+
+                <div class="mt-3 pt-3 border-t border-[#8EB5D4]/20 text-xs text-[#C8D2DE] space-y-1">
+                  <p id="calc-payment-display">
+                    Cargando información de pago...
+                  </p>
+                </div>
+              </div>
+
+              <a
+                id="calc-whatsapp-btn"
+                href="https://wa.me/59176465010"
+                target="_blank"
+                rel="noreferrer"
+                class="inline-flex items-center justify-center gap-2 rounded-full border border-[#EAD59E] bg-transparent py-3.5 text-xs font-bold uppercase tracking-widest text-[#EAD59E] transition hover:bg-[#EAD59E] hover:text-[#080C12]"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 2c-5.518 0-9.998 4.476-9.998 9.993 0 1.763.459 3.483 1.332 5.001L2 22l5.176-1.337c1.472.802 3.125 1.226 4.855 1.226 5.518 0 9.998-4.477 9.998-9.994C22.029 6.476 17.549 2 12.031 2zm0 18.286c-1.503 0-2.973-.404-4.256-1.168l-.305-.181-3.16.817.844-3.048-.198-.319c-.838-1.347-1.282-2.91-1.282-4.512 0-4.571 3.719-8.288 8.297-8.288 4.577 0 8.297 3.717 8.297 8.288 0 4.572-3.72 8.289-8.297 8.289zm4.542-6.208c-.249-.125-1.474-.727-1.703-.81-.229-.083-.395-.125-.561.125-.166.249-.644.81-.789.976-.145.166-.291.187-.54.062-.249-.125-1.052-.388-2.003-1.237-.74-.66-1.24-1.476-1.385-1.725-.145-.249-.015-.384.109-.508.112-.112.249-.291.374-.436.125-.145.166-.249.249-.415.083-.166.042-.312-.021-.436-.062-.125-.561-1.35-.769-1.85-.202-.488-.408-.422-.561-.43l-.478-.008c-.166 0-.436.062-.664.312-.229.249-.873.853-.873 2.079s.894 2.411 1.018 2.577c.125.166 1.758 2.685 4.26 3.766.595.257 1.06.411 1.423.527.598.19 1.142.163 1.572.099.48-.072 1.474-.602 1.682-1.185.208-.582.208-1.08.145-1.185-.062-.104-.228-.166-.477-.291z"/></svg>
+                Consultar datos de pago por WhatsApp
+              </a>
+            </div>
           </div>
 
         </div>
@@ -735,192 +897,336 @@
     <!-- ============================================================
          PREGUNTAS FRECUENTES (FAQ ACCORDION)
          ============================================================ -->
-    <section class="section" id="faq">
-      <div class="section-container">
-        <div class="section-header reveal">
-          <span class="section-eyebrow">Dudas Habituales</span>
-          <h2 class="section-title">Preguntas Frecuentes</h2>
-          <p class="section-lead">Todo lo que necesitas saber antes de formalizar tu inscripción al taller.</p>
+    <section id="faq" class="mx-auto max-w-7xl px-6 py-20 lg:px-10 border-t border-[#8EB5D4]/20">
+      <div class="text-center max-w-3xl mx-auto mb-14">
+        <div class="inline-flex items-center gap-2 text-xs uppercase tracking-[0.35em] text-[#EAD59E] font-bold">
+          <span class="h-px w-10 bg-[#EAD59E]"></span>
+          Dudas Habituales
+          <span class="h-px w-10 bg-[#EAD59E]"></span>
+        </div>
+        <h2 class="mt-3 font-serif text-4xl md:text-5xl lg:text-6xl text-[#F7F4EB]">
+          Preguntas Frecuentes
+        </h2>
+      </div>
+
+      <div class="max-w-4xl mx-auto space-y-4">
+        <div class="rounded-2xl border border-[#8EB5D4]/30 bg-[#0E1520] p-6">
+          <h3 class="font-serif text-xl font-bold text-[#EAD59E] mb-2">¿Se requiere experiencia previa en dramaturgia teatral o escritura?</h3>
+          <p class="text-sm leading-relaxed text-[#C8D2DE]">No se requiere experiencia en dramaturgia teatral ni en escritura académica: el aparato conceptual se construye desde cero durante el taller. Sí se requiere experiencia previa en entrenamiento corporal, danza, teatro físico o artes del movimiento.</p>
         </div>
 
-        <div class="faq-accordion">
-          
-          <div class="faq-card reveal open">
-            <button class="faq-trigger" type="button">
-              <span>¿Se requiere experiencia previa en dramaturgia o escritura?</span>
-              <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-            </button>
-            <div class="faq-answer">
-              <p>No se requiere experiencia previa en dramaturgia teatral ni en escritura académica: el aparato conceptual se construye desde cero durante el taller. Sí se requiere experiencia previa en entrenamiento corporal, danza, teatro físico o artes del movimiento.</p>
-            </div>
-          </div>
+        <div class="rounded-2xl border border-[#8EB5D4]/30 bg-[#0E1520] p-6">
+          <h3 class="font-serif text-xl font-bold text-[#EAD59E] mb-2">¿Qué sucede si no puedo conectarme en vivo en algún bloque?</h3>
+          <p class="text-sm leading-relaxed text-[#C8D2DE]">Ambas sesiones de 3 horas se graban íntegramente en alta definición. Todos los inscritos tendrán acceso exclusivo a las grabaciones durante 30 días para repasarlas a su propio ritmo, junto con los materiales descargables.</p>
+        </div>
 
-          <div class="faq-card reveal">
-            <button class="faq-trigger" type="button">
-              <span>¿Qué sucede si no puedo conectarme en vivo en algún bloque?</span>
-              <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-            </button>
-            <div class="faq-answer">
-              <p>Ambas sesiones de 3 horas se graban íntegramente en alta definición. Todos los inscritos tendrán acceso exclusivo a las grabaciones durante 30 días para repasarlas a su propio ritmo, junto con los materiales descargables.</p>
-            </div>
-          </div>
+        <div class="rounded-2xl border border-[#8EB5D4]/30 bg-[#0E1520] p-6">
+          <h3 class="font-serif text-xl font-bold text-[#EAD59E] mb-2">¿Cómo abono en la moneda de mi país?</h3>
+          <p class="text-sm leading-relaxed text-[#C8D2DE]">Contamos con métodos locales de pago en Bolivia (QR Banco Unión, BNB, BCP), Argentina (pesos/Alias), Perú (Yape/Plin), Colombia (Nequi/Bancolombia), México (SPEI/OXXO), Chile (Cuenta RUT) y Paraguay (SIPAP). Para el resto de países disponemos de PayPal y cobro con tarjeta.</p>
+        </div>
 
-          <div class="faq-card reveal">
-            <button class="faq-trigger" type="button">
-              <span>¿Por qué es indispensable realizar la "tarea puente" entre días?</span>
-              <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-            </button>
-            <div class="faq-answer">
-              <p>El taller es un laboratorio procesual: la práctica de composición del Día 2 se construye directamente sobre las escrituras de impulso producidas el Día 1. La tarea toma entre 30 y 45 minutos y es el motor de la integración coreográfica.</p>
-            </div>
-          </div>
-
-          <div class="faq-card reveal">
-            <button class="faq-trigger" type="button">
-              <span>¿Cómo abono en la moneda de mi país?</span>
-              <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-            </button>
-            <div class="faq-answer">
-              <p>Contamos con cuentas bancarias locales y transferencias rápidas en Bolivia (QR Banco Unión, BNB, BCP), Argentina (pesos/Alias), Perú (Yape/Plin), Colombia (Nequi/Bancolombia), México (SPEI), Chile (Cuenta RUT) y Paraguay (SIPAP). Para el resto de países disponemos de PayPal y cobro con tarjeta.</p>
-            </div>
-          </div>
-
-          <div class="faq-card reveal">
-            <button class="faq-trigger" type="button">
-              <span>¿Se entrega constancia o certificado de participación?</span>
-              <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-            </button>
-            <div class="faq-answer">
-              <p>Sí, al finalizar el intensivo se emite un Certificado Digital de Asistencia por 6 horas formativas avalado por RAÍZ Colectiva Teatro.</p>
-            </div>
-          </div>
-
+        <div class="rounded-2xl border border-[#8EB5D4]/30 bg-[#0E1520] p-6">
+          <h3 class="font-serif text-xl font-bold text-[#EAD59E] mb-2">¿Se entrega constancia o certificado?</h3>
+          <p class="text-sm leading-relaxed text-[#C8D2DE]">Sí, al finalizar se entrega un Certificado Digital de Asistencia por 6 horas formativas emitido y avalado por RAÍZ Colectiva Teatro.</p>
         </div>
       </div>
     </section>
 
 
     <!-- ============================================================
-         FORMULARIO DE REGISTRO INTEGRADO A WHATSAPP
+         FORMULARIO DE REGISTRO INTEGRADO CON WHATSAPP
          ============================================================ -->
-    <section class="section register-section" id="inscripcion">
-      <div class="section-container">
+    <section id="inscripcion" class="mx-auto max-w-7xl px-6 py-20 lg:px-10 border-t border-[#8EB5D4]/20">
+      <div class="grid gap-8 rounded-[2.5rem] border border-[#EAD59E]/40 bg-[#0E1520] p-6 text-[#F7F4EB] shadow-2xl md:p-12 lg:grid-cols-[.8fr_1.2fr]">
         
-        <div class="register-layout">
-          <!-- Columna Información -->
-          <div class="register-info-box reveal">
-            <div>
-              <span class="section-eyebrow">Reserva tu Cupo</span>
-              <h2>Inscripciones Abiertas</h2>
-              <p>
-                Completa tus datos en el formulario para apartar tu lugar en el grupo reducido (15–18 participantes). Al enviar, se abrirá <strong>WhatsApp</strong> con tu solicitud lista para confirmar los datos y recibir las indicaciones de pago.
-              </p>
-            </div>
+        <div>
+          <p class="mb-4 text-xs uppercase tracking-[0.35em] text-[#EAD59E] font-bold">Inscripciones Abiertas</p>
+          <h2 class="font-serif text-4xl leading-tight md:text-6xl text-[#F7F4EB]">
+            Reserva tu lugar en el Intensivo
+          </h2>
+          <p class="mt-6 text-base leading-relaxed text-[#C8D2DE] font-light">
+            Completa tus datos para apartar tu cupo en el grupo reducido (15–18 participantes). Al presionar el botón se abrirá <strong>WhatsApp</strong> con tu solicitud lista para confirmar los detalles y recibir los datos de pago en tu país.
+          </p>
 
-            <div class="direct-contact-card">
-              <div class="contact-row">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 2c-5.518 0-9.998 4.476-9.998 9.993 0 1.763.459 3.483 1.332 5.001L2 22l5.176-1.337c1.472.802 3.125 1.226 4.855 1.226 5.518 0 9.998-4.477 9.998-9.994C22.029 6.476 17.549 2 12.031 2zm0 18.286c-1.503 0-2.973-.404-4.256-1.168l-.305-.181-3.16.817.844-3.048-.198-.319c-.838-1.347-1.282-2.91-1.282-4.512 0-4.571 3.719-8.288 8.297-8.288 4.577 0 8.297 3.717 8.297 8.288 0 4.572-3.72 8.289-8.297 8.289zm4.542-6.208c-.249-.125-1.474-.727-1.703-.81-.229-.083-.395-.125-.561.125-.166.249-.644.81-.789.976-.145.166-.291.187-.54.062-.249-.125-1.052-.388-2.003-1.237-.74-.66-1.24-1.476-1.385-1.725-.145-.249-.015-.384.109-.508.112-.112.249-.291.374-.436.125-.145.166-.249.249-.415.083-.166.042-.312-.021-.436-.062-.125-.561-1.35-.769-1.85-.202-.488-.408-.422-.561-.43l-.478-.008c-.166 0-.436.062-.664.312-.229.249-.873.853-.873 2.079s.894 2.411 1.018 2.577c.125.166 1.758 2.685 4.26 3.766.595.257 1.06.411 1.423.527.598.19 1.142.163 1.572.099.48-.072 1.474-.602 1.682-1.185.208-.582.208-1.08.145-1.185-.062-.104-.228-.166-.477-.291z"/></svg>
-                <div>
-                  <span class="contact-label">WhatsApp de Coordinación</span>
-                  <a href="https://wa.me/59176465010" target="_blank" rel="noopener noreferrer" class="contact-val">+591 76465010</a>
-                </div>
-              </div>
+          <div class="mt-8 rounded-2xl border border-[#8EB5D4]/20 bg-[#080C12] p-5 text-xs leading-relaxed text-[#C8D2DE] space-y-2">
+            <p>
+              <strong class="text-[#EAD59E]">WhatsApp de Coordinación:</strong><br />
+              <a href="https://wa.me/59176465010" target="_blank" rel="noreferrer" class="text-white hover:underline">
+                +591 76465010
+              </a>
+            </p>
+            <p>
+              <strong class="text-[#EAD59E]">Correo Electrónico:</strong><br />
+              <a href="mailto:raizcolectivateatro@gmail.com" class="text-white hover:underline">
+                raizcolectivateatro@gmail.com
+              </a>
+            </p>
+          </div>
+        </div>
 
-              <div class="contact-row">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                <div>
-                  <span class="contact-label">Correo Oficial</span>
-                  <a href="mailto:raizcolectivateatro@gmail.com" class="contact-val">raizcolectivateatro@gmail.com</a>
-                </div>
-              </div>
-            </div>
+        <!-- Formulario -->
+        <form id="workshop-reg-form" class="grid gap-4">
+          <div class="grid gap-4 md:grid-cols-2">
+            <label class="grid gap-1.5 text-xs uppercase tracking-wider text-[#EAD59E] font-medium">
+              Nombre completo *
+              <input
+                name="nombre"
+                type="text"
+                required
+                placeholder="Ej. María Flores"
+                class="rounded-2xl border border-[#8EB5D4]/30 bg-[#080C12] px-4 py-3.5 text-[#F7F4EB] outline-none focus:border-[#EAD59E]"
+              />
+            </label>
+
+            <label class="grid gap-1.5 text-xs uppercase tracking-wider text-[#EAD59E] font-medium">
+              Correo electrónico *
+              <input
+                name="email"
+                type="email"
+                required
+                placeholder="tucorreo@ejemplo.com"
+                class="rounded-2xl border border-[#8EB5D4]/30 bg-[#080C12] px-4 py-3.5 text-[#F7F4EB] outline-none focus:border-[#EAD59E]"
+              />
+            </label>
           </div>
 
-          <!-- Columna Formulario -->
-          <form id="workshop-reg-form" class="reg-form reveal" novalidate>
-            <div class="form-grid-2">
-              <div class="form-field">
-                <label for="reg-nombre">Nombre y Apellidos *</label>
-                <input id="reg-nombre" name="nombre" type="text" class="form-input" required placeholder="Ej. Camila Morales">
-              </div>
+          <div class="grid gap-4 md:grid-cols-2">
+            <label class="grid gap-1.5 text-xs uppercase tracking-wider text-[#EAD59E] font-medium">
+              WhatsApp *
+              <input
+                name="whatsapp"
+                type="tel"
+                required
+                placeholder="+591 7..."
+                class="rounded-2xl border border-[#8EB5D4]/30 bg-[#080C12] px-4 py-3.5 text-[#F7F4EB] outline-none focus:border-[#EAD59E]"
+              />
+            </label>
 
-              <div class="form-field">
-                <label for="reg-email">Correo Electrónico *</label>
-                <input id="reg-email" name="email" type="email" class="form-input" required placeholder="tucorreo@ejemplo.com">
-              </div>
-            </div>
+            <label class="grid gap-1.5 text-xs uppercase tracking-wider text-[#EAD59E] font-medium">
+              País *
+              <input
+                name="pais"
+                type="text"
+                required
+                placeholder="Bolivia / Argentina / Perú..."
+                class="rounded-2xl border border-[#8EB5D4]/30 bg-[#080C12] px-4 py-3.5 text-[#F7F4EB] outline-none focus:border-[#EAD59E]"
+              />
+            </label>
+          </div>
 
-            <div class="form-grid-2">
-              <div class="form-field">
-                <label for="reg-whatsapp">Número de WhatsApp *</label>
-                <input id="reg-whatsapp" name="whatsapp" type="tel" class="form-input" required placeholder="+591 ...">
-              </div>
+          <label class="grid gap-1.5 text-xs uppercase tracking-wider text-[#EAD59E] font-medium">
+            Perfil artístico
+            <select
+              name="perfil"
+              class="rounded-2xl border border-[#8EB5D4]/30 bg-[#080C12] px-4 py-3.5 text-[#F7F4EB] outline-none focus:border-[#EAD59E] cursor-pointer"
+            >
+              <option value="Bailarín/a o Intérprete">Bailarín/a o Intérprete de Danza</option>
+              <option value="Coreógrafo/a o Director/a">Coreógrafo/a o Director/a</option>
+              <option value="Actor / Actriz de Teatro Físico">Actor / Actriz de Teatro Físico</option>
+              <option value="Docente o Investigador/a">Docente o Investigador/a Escénico</option>
+              <option value="Estudiante">Estudiante de Artes Escénicas</option>
+              <option value="Otro">Otro</option>
+            </select>
+          </label>
 
-              <div class="form-field">
-                <label for="reg-pais">País de Residencia *</label>
-                <input id="reg-pais" name="pais" type="text" class="form-input" required placeholder="Ej. Bolivia / Argentina / Perú">
-              </div>
-            </div>
+          <label class="grid gap-1.5 text-xs uppercase tracking-wider text-[#EAD59E] font-medium">
+            Consulta o proceso en curso (Opcional)
+            <textarea
+              name="mensaje"
+              rows="3"
+              placeholder="Cuéntanos brevemente sobre tu trabajo o inquietudes..."
+              class="rounded-2xl border border-[#8EB5D4]/30 bg-[#080C12] px-4 py-3 text-[#F7F4EB] outline-none focus:border-[#EAD59E] resize-none"
+            ></textarea>
+          </label>
 
-            <div class="form-field">
-              <label for="reg-perfil">Tu Perfil Artístico / Disciplina</label>
-              <select id="reg-perfil" name="perfil" class="form-select">
-                <option value="Bailarín/a o Intérprete">Bailarín/a o Intérprete de Danza</option>
-                <option value="Coreógrafo/a o Director/a">Coreógrafo/a o Director/a</option>
-                <option value="Actor / Actriz de Teatro Físico">Actor / Actriz de Teatro Físico</option>
-                <option value="Docente o Investigador/a">Docente o Investigador/a Escénico</option>
-                <option value="Estudiante de Danza / Teatro">Estudiante de Danza / Teatro</option>
-                <option value="Otro perfil">Otro</option>
-              </select>
-            </div>
-
-            <div class="form-field">
-              <label for="reg-mensaje">Consulta o Mensaje Adicional (Opcional)</label>
-              <textarea id="reg-mensaje" name="mensaje" class="form-textarea" placeholder="¿Tienes algún proceso creativo o de tesis en curso? Cuéntanos brevemente..."></textarea>
-            </div>
-
-            <button type="submit" class="btn-primary btn-submit-reg">
-              Enviar Solicitud por WhatsApp
-            </button>
-          </form>
-
-        </div>
+          <button
+            type="submit"
+            class="mt-2 flex items-center justify-center gap-2 rounded-full bg-[#EAD59E] py-4 text-center text-sm font-bold uppercase tracking-widest text-[#080C12] transition hover:bg-[#F5E6BE] shadow-xl hover:shadow-2xl"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 2c-5.518 0-9.998 4.476-9.998 9.993 0 1.763.459 3.483 1.332 5.001L2 22l5.176-1.337c1.472.802 3.125 1.226 4.855 1.226 5.518 0 9.998-4.477 9.998-9.994C22.029 6.476 17.549 2 12.031 2zm0 18.286c-1.503 0-2.973-.404-4.256-1.168l-.305-.181-3.16.817.844-3.048-.198-.319c-.838-1.347-1.282-2.91-1.282-4.512 0-4.571 3.719-8.288 8.297-8.288 4.577 0 8.297 3.717 8.297 8.288 0 4.572-3.72 8.289-8.297 8.289zm4.542-6.208c-.249-.125-1.474-.727-1.703-.81-.229-.083-.395-.125-.561.125-.166.249-.644.81-.789.976-.145.166-.291.187-.54.062-.249-.125-1.052-.388-2.003-1.237-.74-.66-1.24-1.476-1.385-1.725-.145-.249-.015-.384.109-.508.112-.112.249-.291.374-.436.125-.145.166-.249.249-.415.083-.166.042-.312-.021-.436-.062-.125-.561-1.35-.769-1.85-.202-.488-.408-.422-.561-.43l-.478-.008c-.166 0-.436.062-.664.312-.229.249-.873.853-.873 2.079s.894 2.411 1.018 2.577c.125.166 1.758 2.685 4.26 3.766.595.257 1.06.411 1.423.527.598.19 1.142.163 1.572.099.48-.072 1.474-.602 1.682-1.185.208-.582.208-1.08.145-1.185-.062-.104-.228-.166-.477-.291z"/></svg>
+            Enviar Solicitud por WhatsApp
+          </button>
+        </form>
 
       </div>
     </section>
-  </main>
 
+    <!-- FOOTER -->
+    <footer class="border-t border-[#8EB5D4]/20 bg-[#05080C] px-6 py-12 text-xs text-[#C8D2DE]">
+      <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 md:flex-row">
+        <div>
+          <strong class="text-[#F7F4EB]">RAÍZ Colectiva Teatro</strong> · Cochabamba / La Paz, Bolivia
+        </div>
+        <div class="flex gap-6">
+          <a href="https://www.youtube.com/@RaizColectiva" target="_blank" rel="noopener noreferrer" class="hover:text-[#EAD59E]">YouTube</a>
+          <a href="https://www.instagram.com/raizcolectivateatro/" target="_blank" rel="noopener noreferrer" class="hover:text-[#EAD59E]">Instagram</a>
+          <a href="mailto:raizcolectivateatro@gmail.com" class="hover:text-[#EAD59E]">Contacto</a>
+        </div>
+      </div>
+    </footer>
 
-  <!-- ============================================================
-       FOOTER
-       ============================================================ -->
-  <footer class="site-footer">
-    <div class="footer-inner">
+    <!-- STICKY MOBILE BAR -->
+    <aside class="fixed bottom-0 inset-x-0 z-40 border-t border-[#8EB5D4]/30 bg-[#080C12]/95 backdrop-blur-md px-6 py-3 flex items-center justify-between md:hidden">
       <div>
-        <p><strong>RAÍZ Colectiva Teatro</strong> · Cochabamba / La Paz, Bolivia</p>
-        <p style="margin-top: 4px; font-size: 0.74rem;">Investigación escénica y antropología teatral latinoamericana.</p>
+        <span class="block text-[10px] font-bold uppercase tracking-wider text-[#EAD59E]">12 y 13 Septiembre · Zoom</span>
+        <span class="font-serif text-lg font-bold text-[#F7F4EB] leading-none">$45 USD</span>
       </div>
+      <a href="#inscripcion" class="rounded-full bg-[#EAD59E] px-5 py-2 text-xs font-bold uppercase tracking-wider text-[#080C12] shadow-md">
+        Inscribirme
+      </a>
+    </aside>
 
-      <div class="footer-links">
-        <a href="https://www.youtube.com/@RaizColectiva" target="_blank" rel="noopener noreferrer">YouTube</a>
-        <a href="https://www.instagram.com/raizcolectivateatro/" target="_blank" rel="noopener noreferrer">Instagram</a>
-        <a href="mailto:raizcolectivateatro@gmail.com">Contacto</a>
-      </div>
-    </div>
-  </footer>
-
+  </div><!-- /#main-site-content -->
 
   <!-- ============================================================
-       BARRA FLOTANTE MÓVIL
+       SCRIPT INLINE PARA GARANTIZAR QUE EL INTRO LOADER Y LAS TABS FUNCIONEN AL 100%
        ============================================================ -->
-  <aside class="mobile-sticky-bar" aria-label="Acción rápida en móvil">
-    <div class="mobile-bar-info">
-      <span class="mob-date">12 y 13 Septiembre · Zoom</span>
-      <span class="mob-price">$45 USD Pronto Pago</span>
-    </div>
-    <a href="#inscripcion" class="btn-primary mob-btn">Inscribirme</a>
-  </aside>
+  <script>
+    // 1. Loader con fases y transición suave
+    (function initIntroLoader() {
+      const loader = document.getElementById("intro-loader");
+      const content = document.getElementById("main-site-content");
+      const phaseText = document.getElementById("loader-phase-text");
+      const skipBtn = document.getElementById("loader-skip-btn");
 
-  <script src="js/main.js"></script>
+      if (!loader || !content) return;
+
+      const phases = [
+        "El cuerpo que escribe...",
+        "La palabra que danza...",
+        "Habitar la escena"
+      ];
+
+      // Animación de textos
+      const t1 = setTimeout(() => {
+        if (phaseText) {
+          phaseText.style.opacity = '0';
+          setTimeout(() => {
+            phaseText.textContent = phases[1];
+            phaseText.style.opacity = '1';
+          }, 200);
+        }
+      }, 1200);
+
+      const t2 = setTimeout(() => {
+        if (phaseText) {
+          phaseText.style.opacity = '0';
+          setTimeout(() => {
+            phaseText.textContent = phases[2];
+            phaseText.style.opacity = '1';
+          }, 200);
+        }
+      }, 2400);
+
+      function completeLoader() {
+        clearTimeout(t1);
+        clearTimeout(t2);
+        loader.classList.add("opacity-0", "pointer-events-none");
+        content.classList.remove("opacity-0");
+        content.classList.add("opacity-100");
+        setTimeout(() => {
+          loader.remove();
+        }, 1100);
+      }
+
+      // Auto fade-out a los 3.4s y fade-in de la página
+      const autoDismiss = setTimeout(completeLoader, 3400);
+
+      if (skipBtn) {
+        skipBtn.addEventListener("click", () => {
+          clearTimeout(autoDismiss);
+          completeLoader();
+        });
+      }
+    })();
+
+    // 2. Tabs Día 1 y Día 2
+    (function initDayTabs() {
+      const btn1 = document.getElementById("tab-btn-day1");
+      const btn2 = document.getElementById("tab-btn-day2");
+      const content1 = document.getElementById("day-content-1");
+      const content2 = document.getElementById("day-content-2");
+
+      if (!btn1 || !btn2 || !content1 || !content2) return;
+
+      btn1.addEventListener("click", () => {
+        btn1.className = "rounded-full bg-[#EAD59E] px-8 py-3 text-xs font-bold uppercase tracking-widest text-[#080C12] shadow-md transition-all";
+        btn2.className = "rounded-full border border-[#8EB5D4]/40 bg-[#0E1520] px-8 py-3 text-xs font-bold uppercase tracking-widest text-[#C8D2DE] hover:border-[#EAD59E] transition-all";
+        content1.classList.remove("hidden");
+        content2.classList.add("hidden");
+      });
+
+      btn2.addEventListener("click", () => {
+        btn2.className = "rounded-full bg-[#EAD59E] px-8 py-3 text-xs font-bold uppercase tracking-widest text-[#080C12] shadow-md transition-all";
+        btn1.className = "rounded-full border border-[#8EB5D4]/40 bg-[#0E1520] px-8 py-3 text-xs font-bold uppercase tracking-widest text-[#C8D2DE] hover:border-[#EAD59E] transition-all";
+        content2.classList.remove("hidden");
+        content1.classList.add("hidden");
+      });
+    })();
+
+    // 3. Cotizador de países y generador de WhatsApp
+    (function initCountryAndWhatsApp() {
+      const COUNTRIES_DATA = [
+        { code: "BO", name: "Bolivia", currency: "BOB", symbol: "Bs.", priceDiscount: "350", payment: "Transferencia bancaria / QR (Banco Unión, BNB, BCP)" },
+        { code: "AR", name: "Argentina", currency: "ARS", symbol: "$", priceDiscount: "60.000", payment: "Transferencia en pesos / Alias / Mercado Pago" },
+        { code: "PE", name: "Perú", currency: "PEN", symbol: "S/.", priceDiscount: "190", payment: "Yape / Plin / Transferencia BCP / Interbank" },
+        { code: "CO", name: "Colombia", currency: "COP", symbol: "$", priceDiscount: "190.000", payment: "Nequi / Bancolombia / PSE" },
+        { code: "PY", name: "Paraguay", currency: "PYG", symbol: "Gs.", priceDiscount: "280.000", payment: "Giro / Transferencia Bancaria (SIPAP)" },
+        { code: "MX", name: "México", currency: "MXN", symbol: "$", priceDiscount: "1.100", payment: "Transferencia SPEI / OXXO / Mercado Pago" },
+        { code: "CL", name: "Chile", currency: "CLP", symbol: "$", priceDiscount: "45.000", payment: "Transferencia Cuenta RUT / Bancaria" },
+        { code: "OT", name: "Otros países / Internacional", currency: "USD", symbol: "$", priceDiscount: "45", payment: "PayPal / Tarjeta de Crédito y Débito / Western Union" }
+      ];
+
+      const select = document.getElementById("calc-country-select");
+      const priceDisplay = document.getElementById("calc-price-display");
+      const paymentDisplay = document.getElementById("calc-payment-display");
+      const whatsAppBtn = document.getElementById("calc-whatsapp-btn");
+
+      if (select) {
+        COUNTRIES_DATA.forEach(c => {
+          const opt = document.createElement("option");
+          opt.value = c.code;
+          opt.textContent = `${c.name} (${c.currency})`;
+          select.appendChild(opt);
+        });
+
+        function update(code) {
+          const data = COUNTRIES_DATA.find(c => c.code === code) || COUNTRIES_DATA[0];
+          if (priceDisplay) priceDisplay.textContent = `${data.symbol} ${data.priceDiscount} ${data.currency}`;
+          if (paymentDisplay) paymentDisplay.innerHTML = `<strong>Medios de pago en ${data.name}:</strong> ${data.payment}`;
+          if (whatsAppBtn) {
+            const msg = encodeURIComponent(`Hola RAÍZ Colectiva, deseo consultar los datos de pago para inscribirme al Taller de Dramaturgia para la Danza desde ${data.name} (${data.symbol} ${data.priceDiscount} ${data.currency}).`);
+            whatsAppBtn.href = `https://wa.me/59176465010?text=${msg}`;
+          }
+        }
+
+        select.addEventListener("change", (e) => update(e.target.value));
+        update("BO");
+      }
+
+      // Formulario de inscripción
+      const form = document.getElementById("workshop-reg-form");
+      if (form) {
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const fd = new FormData(form);
+          const lines = [
+            "🎭 *SOLICITUD DE INSCRIPCIÓN · DRAMATURGIA PARA LA DANZA*",
+            "----------------------------------------",
+            `👤 *Nombre:* ${fd.get("nombre") || ""}`,
+            `📧 *Email:* ${fd.get("email") || ""}`,
+            `📱 *WhatsApp:* ${fd.get("whatsapp") || ""}`,
+            `🌎 *País:* ${fd.get("pais") || ""}`,
+            `🩰 *Perfil:* ${fd.get("perfil") || ""}`,
+            `💬 *Mensaje:* ${fd.get("mensaje") || "Deseo apartar mi cupo con descuento y recibir datos de pago."}`,
+            "----------------------------------------",
+            "Vía Zoom · Sábado 12 y Domingo 13 de Septiembre"
+          ];
+          const waUrl = `https://wa.me/59176465010?text=${encodeURIComponent(lines.join("\n"))}`;
+          window.open(waUrl, "_blank", "noopener,noreferrer");
+        });
+      }
+    })();
+  </script>
 </body>
 </html>
